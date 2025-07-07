@@ -5,19 +5,20 @@ class client {
     Nom : string
     Prénom : string
     Genre : string
-    Adresse : string
+    Adresse_Postal : string
     Code_Postal : int
     Ville : string
     Téléphone : string
     Adresse_mail : string
     Commande_en_cours : list[Id_commande]
     Historique_commande: list[Id_commande]
+    Newsletters : boolean
 }
 
 class commande {
     Id_commande : int
     Id_client : int
-    Id_objet : int
+    Liste_id_objet : list[Id_objet]
     Quantité_d_objet : int
     Numéro_de_suivie : int
     Type_d_emballage : int je suis pas sur de le garder
@@ -42,7 +43,30 @@ class emballage {
     {field} Poids : décimal ()
 }
 
+class Enseigne {
+    Numéro_Enseigne : int
+    Nom_Enseigne : string
+    Ville : string
+    Département : int
+}
+
+class Utilisateur {
+    Id_utilisateur : int
+    Nom : string
+}
+
+interface Intranet {
+    CreationCommande()
+    CreationClient()
+    ModificationClient()
+}
+
 client "0..*" -- "1" commande : Passe
 commande -- objet : peut être un agregat à revoir
 emballage -- objet : peut en contenir plusieurs
+emballage -- commande : va contenir la commande
+
+Utilisateur ..|> Intranet : <<realize>>
+Intranet <.. client : <<use>>
+Intranet <.. commande : <<use>>
 @enduml

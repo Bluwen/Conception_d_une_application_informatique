@@ -12,6 +12,15 @@ package Intranet{
     usecase "Visualiser les mouvements des colis" as mouvement_commande
     usecase "Créer une commande" as ceration_commande
 
+    usecase "Envoyer des mails" as envoyer_mails
+    usecase "Envoyer des mails personalisés" as mails_personalises
+    usecase "Envoyer la newletters" as newletters
+
+    usecase "Imprimer" as imprimer
+    usecase "Liste des clients" as liste_client
+    usecase "Liste des objets" as liste_objet
+    usecase "Liste de commande d'un client" as liste_commande_client
+    usecase "Rapport statistique" as rapport_statistique
 }
 
 colis -- gestion_clients
@@ -23,4 +32,13 @@ gestion_commandes <-- commandes_en_cours : <<extend>>
 commandes_en_cours <-- mouvement_commande : <<extend>>
 gestion_commandes <-- ceration_commande : <<extend>>
 
+colis -- envoyer_mails
+envoyer_mails <-- mails_personalises : <<extend>>
+envoyer_mails <-- newletters : <<extend>>
+
+colis -- imprimer
+imprimer <-- liste_client : <<extend>>
+imprimer <-- liste_objet : <<extend>>
+imprimer <-- liste_commande_client : <<extend>>
+imprimer <-- rapport_statistique : <<extend>>
 @enduml
