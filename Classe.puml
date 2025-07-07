@@ -13,6 +13,7 @@ class client {
     Commande_en_cours : list[Id_commande]
     Historique_commande: list[Id_commande]
     Newsletters : boolean
+    {field} Solde : décimal()
 }
 
 class commande {
@@ -23,6 +24,7 @@ class commande {
     Numéro_de_suivie : int
     Type_d_emballage : int je suis pas sur de le garder
     Etat : string => pour indiqué si c'est en cours, posté ou arrivé
+    {field} Prix : décimal ()
 
 }
 
@@ -33,9 +35,10 @@ class objet {
     Description : string
     Disponible : boolean
     Modèle : string pas sur de la garder
+    {field} Prix : décimal ()
 }
 
-class emballage {
+class Emballage {
     Id_emballage : int
     Nom : string
     Quantité_minimum : int
@@ -59,14 +62,38 @@ interface Intranet {
     CreationCommande()
     CreationClient()
     ModificationClient()
+    EnvoyerMail()
+    SuivreCommande()
+    AfficherListeEmballages()
+}
+
+class Timbre {
+    Poids_maximum : int
+    {field} Prix : décimal ()
+}
+
+class Liste_emballage {
+
+}
+
+interface Statistique {
+    RapportObjets()
+    RapportPosition()
+
 }
 
 client "0..*" -- "1" commande : Passe
 commande -- objet : peut être un agregat à revoir
-emballage -- objet : peut en contenir plusieurs
-emballage -- commande : va contenir la commande
+Emballage -- objet : peut en contenir plusieurs
+Emballage -- commande : va contenir la commande
 
 Utilisateur ..|> Intranet : <<realize>>
 Intranet <.. client : <<use>>
 Intranet <.. commande : <<use>>
+
+Emballage --o Liste_emballage
+Liste_emballage ..> Intranet : <<uses>>
+
+Utilisateur ..|> Statistique : <<realise>>
+
 @enduml
