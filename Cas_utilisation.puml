@@ -1,0 +1,26 @@
+@startuml brouillon
+
+actor utilisateur_colis as colis
+
+package Intranet{
+    usecase "Gérer des clients" as gestion_clients
+    usecase "Créer une fiche client" as creation_fiche_client
+    usecase "Modifier une fiche client" as modification_fiche_client
+
+    usecase "Gérer les commandes" as gestion_commandes
+    usecase "Consulter les commandes en cours" as commandes_en_cours
+    usecase "Visualiser les mouvements des colis" as mouvement_commande
+    usecase "Créer une commande" as ceration_commande
+
+}
+
+colis -- gestion_clients
+gestion_clients <-- creation_fiche_client : <<extend>>
+gestion_clients <-- modification_fiche_client : <<extend>>
+
+colis -- gestion_commandes
+gestion_commandes <-- commandes_en_cours : <<extend>>
+commandes_en_cours <-- mouvement_commande : <<extend>>
+gestion_commandes <-- ceration_commande : <<extend>>
+
+@enduml

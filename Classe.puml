@@ -1,0 +1,48 @@
+@startuml class brooullion
+
+class client {
+    Id_client : int
+    Nom : string
+    Prénom : string
+    Genre : string
+    Adresse : string
+    Code_Postal : int
+    Ville : string
+    Téléphone : string
+    Adresse_mail : string
+    Commande_en_cours : list[Id_commande]
+    Historique_commande: list[Id_commande]
+}
+
+class commande {
+    Id_commande : int
+    Id_client : int
+    Id_objet : int
+    Quantité_d_objet : int
+    Numéro_de_suivie : int
+    Type_d_emballage : int je suis pas sur de le garder
+    Etat : string => pour indiqué si c'est en cours, posté ou arrivé
+
+}
+
+class objet {
+    Id_objet : int
+    {field} Poids : décimal ()
+    Nom : string
+    Description : string
+    Disponible : boolean
+    Modèle : string pas sur de la garder
+}
+
+class emballage {
+    Id_emballage : int
+    Nom : string
+    Quantité_minimum : int
+    Quantité_maximum : int
+    {field} Poids : décimal ()
+}
+
+client "0..*" -- "1" commande : Passe
+commande -- objet : peut être un agregat à revoir
+emballage -- objet : peut en contenir plusieurs
+@enduml
