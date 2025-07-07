@@ -1,0 +1,9 @@
+@startuml brouillon global
+
+package Application_chevre {
+    package Gestion_colis {}
+    package Gestion_stock {}
+    package Administrative {}
+}
+
+@enduml

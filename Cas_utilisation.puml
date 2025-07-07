@@ -21,6 +21,12 @@ package Intranet{
     usecase "Liste des objets" as liste_objet
     usecase "Liste de commande d'un client" as liste_commande_client
     usecase "Rapport statistique" as rapport_statistique
+
+    usecase "Valider la commande" as valider_commande
+    usecase "Conditionnement de la commande" as conditionnnement
+    usecase "Choix de l'emballage" as emballage
+    usecase "Nombre de produit" as nb_produit
+    usecase "Choix du produit" as choix_produit
 }
 
 colis -- gestion_clients
@@ -31,6 +37,12 @@ colis -- gestion_commandes
 gestion_commandes <-- commandes_en_cours : <<extend>>
 commandes_en_cours <-- mouvement_commande : <<extend>>
 gestion_commandes <-- ceration_commande : <<extend>>
+ceration_commande <-- valider_commande : <<extend>>
+valider_commande --> conditionnnement : <<include>>
+conditionnnement --> emballage : <<include>>
+emballage --> nb_produit : <<include>>
+nb_produit --> choix_produit : <<include>>
+
 
 colis -- envoyer_mails
 envoyer_mails <-- mails_personalises : <<extend>>
