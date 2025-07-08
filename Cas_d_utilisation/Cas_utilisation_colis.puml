@@ -17,11 +17,13 @@ package Application_intranet_Digicheese {
     usecase Validation_du_conditionnement
 
     usecase Ajout_d_un_numero_de_suivi
+
+    usecase Impression_d_une_commande
 }
 
 Operateur_colis -- Créer_une_commande
 Operateur_colis -- Gérer_une_commande
-
+Operateur_colis -- Impression_d_une_commande
 
 Créer_une_commande --> Compte_client : <<include>>
 Créer_une_commande --> Choix_des_produits : <<include>>

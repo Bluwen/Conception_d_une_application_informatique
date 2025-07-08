@@ -20,6 +20,8 @@ package Application_intranet_Digicheese {
     usecase Envoyer_une_newletters
 
     usecase Suppression_d_un_compte_client
+
+    usecase Impression_de_la_liste_des_clients
 }
 
 Administateur -- Suppression_d_un_compte_client
@@ -28,6 +30,7 @@ Operateur_colis <|-- Administateur
 
 Operateur_colis -- Créer_un_compte_client
 Operateur_colis -- Gérer_un_compte_client
+Operateur_colis -- Impression_de_la_liste_des_clients
 
 Créer_un_compte_client <-- Gérer_un_compte_client :<<include>>
 
