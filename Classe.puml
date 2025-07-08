@@ -156,6 +156,19 @@ package Logique_metier {
         }
 
     }
+
+    package Statistique {
+
+        abstract Rapport_Statistique {
+            + GénérerRapportStatistique()
+        }
+
+        class Rapport_Statistique_Produits{
+
+        }
+
+        class Rapport_Statistique_Enseigne{}
+    }
     
 }
 
@@ -176,7 +189,8 @@ Impression_Documents <|-- Impression_liste_client
 Impression_Documents <|-- Impression_rapport_statistique
 Impression_Documents <|-- bouton
 
-
+Rapport_Statistique <|-- Rapport_Statistique_Enseigne
+Rapport_Statistique <|-- Rapport_Statistique_Produits
 
 
 
