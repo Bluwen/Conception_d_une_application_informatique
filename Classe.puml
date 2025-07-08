@@ -1,85 +1,69 @@
 @startuml class brooullion
+skinparam groupInheritance 4
 
-class client {
-    Id_client : int
-    Nom : string
-    Prénom : string
-    Genre : string
-    Adresse_Postal : string
-    Code_Postal : int
-    Ville : string
-    Téléphone : string
-    Adresse_mail : string
-    Commande_en_cours : list[Id_commande]
-    Historique_commande: list[Id_commande]
-    Newsletters : boolean
-    {field} Solde : décimal()
-}
+package Model {
+    class client {
+        Id_client : int
+        Nom : string
+        Prénom : string
+        Genre : string
+        Adresse_Postal : string
+        Code_Postal : int
+        Ville : string
+        Téléphone : string
+        Adresse_mail : string
+        Commande_en_cours : list[Id_commande]
+        Historique_commande: list[Id_commande]
+        Newsletters : boolean
+        {field} Solde : décimal()
+    }
 
-class commande {
-    Id_commande : int
-    Id_client : int
-    Liste_id_objet : list[Id_objet]
-    Quantité_d_objet : int
-    Numéro_de_suivie : int
-    Type_d_emballage : int je suis pas sur de le garder
-    Etat : string => pour indiqué si c'est en cours, posté ou arrivé
-    {field} Prix : décimal ()
+    class commande {
+        Id_commande : int
+        Id_client : int
+        Liste_id_objet : list[Id_objet]
+        Quantité_d_objet : int
+        Numéro_de_suivie : int
+        Type_d_emballage : int je suis pas sur de le garder
+        Etat : string => pour indiqué si c'est en cours, posté ou arrivé
+        {field} Prix : décimal ()
 
-}
+    }
 
-class objet {
-    Id_objet : int
-    {field} Poids : décimal ()
-    Nom : string
-    Description : string
-    Disponible : boolean
-    Modèle : string pas sur de la garder
-    {field} Prix : décimal ()
-}
+    class objet {
+        Id_objet : int
+        {field} Poids : décimal ()
+        Nom : string
+        Description : string
+        Disponible : boolean
+        Modèle : string pas sur de la garder
+        {field} Prix : décimal ()
+    }
 
-class Emballage {
-    Id_emballage : int
-    Nom : string
-    Quantité_minimum : int
-    Quantité_maximum : int
-    {field} Poids : décimal ()
-}
+    class Emballage {
+        Id_emballage : int
+        Nom : string
+        Quantité_minimum : int
+        Quantité_maximum : int
+        {field} Poids : décimal ()
+    }
 
-class Enseigne {
-    Numéro_Enseigne : int
-    Nom_Enseigne : string
-    Ville : string
-    Département : int
-}
+    class Enseigne {
+        Numéro_Enseigne : int
+        Nom_Enseigne : string
+        Ville : string
+        Département : int
+    }
 
-class Utilisateur {
-    Id_utilisateur : int
-    Nom : string
-}
+    class Utilisateur {
+        Id_utilisateur : int
+        Nom : string
+    }
 
-interface Intranet {
-    CreationCommande()
-    CreationClient()
-    ModificationClient()
-    EnvoyerMail()
-    SuivreCommande()
-    AfficherListeEmballages()
-}
-
-class Timbre {
-    Poids_maximum : int
-    {field} Prix : décimal ()
-}
-
-class Liste_emballage {
-
-}
-
-interface Statistique {
-    RapportObjets()
-    RapportPosition()
-
+    class Timbre {
+        Poids_maximum : int
+        {field} Prix : décimal ()
+    }
 }
 
 client "0..*" -- "1" commande : Passe
@@ -87,13 +71,58 @@ commande -- objet : peut être un agregat à revoir
 Emballage -- objet : peut en contenir plusieurs
 Emballage -- commande : va contenir la commande
 
-Utilisateur ..|> Intranet : <<realize>>
-Intranet <.. client : <<use>>
-Intranet <.. commande : <<use>>
 
-Emballage --o Liste_emballage
-Liste_emballage ..> Intranet : <<uses>>
+package Logique_metier {
+    interface Creation_de_commande {
+        + CreerCommande()
+        + setNext()
+    }
 
-Utilisateur ..|> Statistique : <<realise>>
+    abstract Base_Creation_de_commande {
+        - next : Handler
+        + setNext(Handler)
+        + CreerCommande()
+    } 
+
+    class Handler_Produits{
+        + ChoixProduits()
+        + VerificationDesStocksProduits()
+        + setNext(Handler)
+    }
+
+    class Handler_Emballage {
+        + ChoixEmballage()
+        + VerificationDesStockEmballage()
+        + setNext(Handler)
+    }
+
+    class Handler_conditionnement {
+        + CalculDesFraisDePorts()
+        + ValidationDesFraisDePorts()
+        + setNext(Handler)
+    }
+
+    class Handler_suivie_commande {
+        + ValiderLeNumeroDeSuivie()
+        + setNext(Handler)
+    }
+}
+
+Creation_de_commande <|.. Base_Creation_de_commande
+Base_Creation_de_commande <|-- Handler_Produits
+Base_Creation_de_commande <|-- Handler_Emballage
+Base_Creation_de_commande <|-- Handler_conditionnement
+Base_Creation_de_commande <|-- Handler_suivie_commande
+
+
+
+
+
+
+
+
+
+
+
 
 @enduml
