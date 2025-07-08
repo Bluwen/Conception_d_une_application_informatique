@@ -15,6 +15,8 @@ package Application_intranet_Digicheese {
 
     usecase Calcul_des_frais_de_ports
     usecase Validation_du_conditionnement
+
+    usecase Ajout_d_un_numero_de_suivi
 }
 
 Operateur_colis -- Créer_une_commande
@@ -29,6 +31,7 @@ Choix_emballage --> Calcul_des_frais_de_ports : <<include>>
 Créer_une_commande <-- Gérer_une_commande : <<extend>>
 
 Gérer_une_commande <-- Validation_du_conditionnement : <<extend>>
+Gérer_une_commande <-- Ajout_d_un_numero_de_suivi : <<extend>>
 
 note "Ici le calcul des frais de ports fait références calcul du poids de l'emballage et des produits choisis\nPermet ensuite de le comparer au solde envoyer par le client pour vérifier que tout corresponds" as N1
 note "La validation du conditionnement corresponds à la validation\ndes frais de ports de la commande par rapport au solde verser par le client" as N2

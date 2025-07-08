@@ -1,0 +1,49 @@
+@startuml Compte_client
+skinparam linetype ortho
+
+actor Operateur_colis
+actor Administateur
+
+package Application_intranet_Digicheese {
+    usecase Créer_un_compte_client
+    usecase Gérer_un_compte_client
+    usecase Ajouter_un_solde
+    usecase Modifier_les_informations_client
+
+    usecase Ajouter_une_commande_a_un_client
+    usecase Consulter_les_commandes_en_cours_d_un_client
+    usecase Consulter_historique_des_commandes_d_un_client
+
+    usecase Communiquer_avec_le_ou_les_clients
+    usecase Afficher_le_numéro_de_téléphone
+    usecase Réaliser_un_mail_personalisé
+    usecase Envoyer_une_newletters
+
+    usecase Suppression_d_un_compte_client
+}
+
+Administateur -- Suppression_d_un_compte_client
+
+Operateur_colis <|-- Administateur
+
+Operateur_colis -- Créer_un_compte_client
+Operateur_colis -- Gérer_un_compte_client
+
+Créer_un_compte_client <-- Gérer_un_compte_client :<<include>>
+
+Gérer_un_compte_client <-- Ajouter_un_solde : <<extend>>
+Gérer_un_compte_client <-- Ajouter_une_commande_a_un_client : <<extend>>
+Gérer_un_compte_client <-- Modifier_les_informations_client : <<extend>>
+
+Gérer_un_compte_client <-- Consulter_les_commandes_en_cours_d_un_client : <<extend>>
+Consulter_les_commandes_en_cours_d_un_client <-- Consulter_historique_des_commandes_d_un_client : <<extend>>
+
+Operateur_colis -- Communiquer_avec_le_ou_les_clients
+Communiquer_avec_le_ou_les_clients <-- Afficher_le_numéro_de_téléphone : <<extend>>
+Communiquer_avec_le_ou_les_clients <-- Réaliser_un_mail_personalisé : <<extend>>
+Communiquer_avec_le_ou_les_clients <-- Envoyer_une_newletters : <<extend>>
+
+title Cas d'Utilisation de la gestion d'un compte client dans le package Administration
+
+
+@enduml
