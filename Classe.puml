@@ -75,124 +75,125 @@ Emballage -- commande : va contenir la commande
 
 package Logique_metier {
 
-    package Gestion_de_commande {
-        interface Creation_de_commande {
-        + CreerCommande()
-        + setNext()
+    package Controler_gestion_de_commande {
+
+        class Controler_Commande {
+            + CreerUneCommande()
         }
 
-        abstract Base_Creation_de_commande {
-            - next : Handler
-            + setNext(Handler)
-            + CreerCommande()
-        } 
-
-        class Handler_Produits{
+        class Controler_Produits{
             + ChoixProduits()
             + VerificationDesStocksProduits()
-            + setNext(Handler)
         }
 
-        class Handler_Emballage {
+        class Controler_Emballage {
             + ChoixEmballage()
             + VerificationDesStockEmballage()
-            + setNext(Handler)
         }
 
-        class Handler_conditionnement {
+        class Controler_conditionnement {
             + CalculDesFraisDePorts()
             + ValidationDesFraisDePorts()
-            + setNext(Handler)
         }
 
-        class Handler_suivie_commande {
+        class Controler_suivie_commande {
             + ValiderLeNumeroDeSuivie()
-            + setNext(Handler)
         }
     }
 
     package Communication {
 
         class Mail_personaliser {
-            ChoixClientAContacter()
+            Mail_personaliser(Titre_du_mail, Corps_mail, Client)
         }
 
         class Newsletters {
-            ListeClients()
-            GenerationCorpsMails(fichier_texte)
+            Newsletters(Fichier_texte)
         }
 
         abstract Mail {
+            + Titre_du_mail : string
             + Corps_mail : string
-            VerficiationMail()
-            EnvoyerMail()
+        }
+
+        class Envoyer_Mail{
+            + Liste_de_mail
+            EnvoyerMail(Titre_du_mail, Corps_mail, Liste_de_mail)
         }
     }
 
     package Impression {
 
-        interface Impression_documents{
+        interface I_Imprimable{
             +ImprimerDocuments()
-        }
-
-        abstract Impression_Documents{
-            +ImprimerDocuments()
-        }
-
-        class bouton {
-            pas sur de le garder
-            + ImprimerDocuments()
         }
 
         class Impression_liste_client {
-            + ImprimerDocuments(liste_client)
+            + Liste_de_client : list[client]
+            + ImprimerDocuments()
         }
 
         class Impression_commande_client {
-            + ImprimerDocuments(commande)
+            + Commande_en_cours_client : list[id_commande]
+            + ImprimerDocuments()
         }
 
         class Impression_rapport_statistique {
-            + ImprimerDocuments(rapport_statistique)
+            + Rapport_statistique
+            + ImprimerDocuments()
         }
 
     }
 
-    package Statistique {
+    package Generator_Statistique {
 
-        abstract Rapport_Statistique {
-            + GénérerRapportStatistique()
+        abstract Generator_Rapport_Statistique {
+            + Generator_Rapport_Statistique() : Rapport_statistique
         }
 
-        class Rapport_Statistique_Produits{
-
+        class Generator_Rapport_Statistique_Produits {
+            + Generator_Rapport_Statistique_Produits()
         }
 
-        class Rapport_Statistique_Enseigne{}
+        class Generator_Rapport_Statistique_Enseigne {
+            + Generator_Rapport_Statistique_Enseigne()
+        }
+
+        class Generator_Rapport_Statistique_Client {
+            + Generator_Rapport_Statistique_Client()
+        }
+
+        class Generator_Rapport_Statistique_Commande {
+            + Generator_Rapport_Statistique_Commande()
+        }
+        
     }
     
 }
 
-Creation_de_commande <|.. Base_Creation_de_commande
-Base_Creation_de_commande <|-- Handler_Produits
-Base_Creation_de_commande <|-- Handler_Emballage
-Base_Creation_de_commande <|-- Handler_conditionnement
-Base_Creation_de_commande <|-- Handler_suivie_commande
+'Creation_de_commande <|.. Base_Creation_de_commande
+'Base_Creation_de_commande <|-- Handler_Produits
+'Base_Creation_de_commande <|-- Handler_Emballage
+'Base_Creation_de_commande <|-- Handler_conditionnement
+'Base_Creation_de_commande <|-- Handler_suivie_commande
 
 
-Mail <|-- Mail_personaliser
-Mail <|-- Newsletters
+Mail <|-- Envoyer_Mail
+Envoyer_Mail <|-- Newsletters
+Envoyer_Mail <|-- Mail_personaliser
 
 
-Impression_documents <|.. Impression_Documents
-Impression_Documents <|-- Impression_commande_client
-Impression_Documents <|-- Impression_liste_client
-Impression_Documents <|-- Impression_rapport_statistique
-Impression_Documents <|-- bouton
 
-Rapport_Statistique <|-- Rapport_Statistique_Enseigne
-Rapport_Statistique <|-- Rapport_Statistique_Produits
+I_Imprimable <|-- Impression_commande_client
+I_Imprimable <|-- Impression_liste_client
+I_Imprimable <|-- Impression_rapport_statistique
 
+Generator_Rapport_Statistique <|-- Generator_Rapport_Statistique_Enseigne
+Generator_Rapport_Statistique <|-- Generator_Rapport_Statistique_Produits
+Generator_Rapport_Statistique <|-- Generator_Rapport_Statistique_Commande
+Generator_Rapport_Statistique <|-- Generator_Rapport_Statistique_Client
+
+Impression_rapport_statistique --> Generator_Rapport_Statistique : elle l'implemente trouver le symbole
 
 
 
