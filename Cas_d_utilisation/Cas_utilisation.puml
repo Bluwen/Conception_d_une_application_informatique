@@ -1,0 +1,56 @@
+@startuml brouillon
+
+actor utilisateur_colis as colis
+
+package Intranet{
+    usecase "Gérer des clients" as gestion_clients
+    usecase "Créer une fiche client" as creation_fiche_client
+    usecase "Modifier une fiche client" as modification_fiche_client
+
+    usecase "Gérer les commandes" as gestion_commandes
+    usecase "Consulter les commandes en cours" as commandes_en_cours
+    usecase "Visualiser les mouvements des colis" as mouvement_commande
+    usecase "Créer une commande" as ceration_commande
+
+    usecase "Envoyer des mails" as envoyer_mails
+    usecase "Envoyer des mails personalisés" as mails_personalises
+    usecase "Envoyer la newletters" as newletters
+
+    usecase "Imprimer" as imprimer
+    usecase "Liste des clients" as liste_client
+    usecase "Liste des objets" as liste_objet
+    usecase "Liste de commande d'un client" as liste_commande_client
+    usecase "Rapport statistique" as rapport_statistique
+
+    usecase "Valider la commande" as valider_commande
+    usecase "Conditionnement de la commande" as conditionnnement
+    usecase "Choix de l'emballage" as emballage
+    usecase "Nombre de produit" as nb_produit
+    usecase "Choix du produit" as choix_produit
+}
+
+colis -- gestion_clients
+gestion_clients <-- creation_fiche_client : <<extend>>
+gestion_clients <-- modification_fiche_client : <<extend>>
+
+colis -- gestion_commandes
+gestion_commandes <-- commandes_en_cours : <<extend>>
+commandes_en_cours <-- mouvement_commande : <<extend>>
+gestion_commandes <-- ceration_commande : <<extend>>
+ceration_commande <-- valider_commande : <<extend>>
+valider_commande --> conditionnnement : <<include>>
+conditionnnement --> emballage : <<include>>
+emballage --> nb_produit : <<include>>
+nb_produit --> choix_produit : <<include>>
+
+
+colis -- envoyer_mails
+envoyer_mails <-- mails_personalises : <<extend>>
+envoyer_mails <-- newletters : <<extend>>
+
+colis -- imprimer
+imprimer <-- liste_client : <<extend>>
+imprimer <-- liste_objet : <<extend>>
+imprimer <-- liste_commande_client : <<extend>>
+imprimer <-- rapport_statistique : <<extend>>
+@enduml

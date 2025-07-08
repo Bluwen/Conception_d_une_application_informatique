@@ -1,0 +1,37 @@
+@startuml Cas_utilisation_colis
+'left to right direction
+skinparam linetype polyline
+
+actor Operateur_colis
+
+package Application_intranet_Digicheese {
+    usecase Compte_client
+
+    usecase Créer_une_commande
+    usecase Gérer_une_commande
+
+    usecase Choix_des_produits
+    usecase Choix_emballage
+
+    usecase Calcul_des_frais_de_ports
+    usecase Validation_du_conditionnement
+}
+
+Operateur_colis -- Créer_une_commande
+Operateur_colis -- Gérer_une_commande
+
+
+Créer_une_commande --> Compte_client : <<include>>
+Créer_une_commande --> Choix_des_produits : <<include>>
+Choix_des_produits --> Choix_emballage : <<include>>
+Choix_emballage --> Calcul_des_frais_de_ports : <<include>>
+
+Créer_une_commande <-- Gérer_une_commande : <<extend>>
+
+Gérer_une_commande <-- Validation_du_conditionnement : <<extend>>
+
+note "Ici le calcul des frais de ports fait références calcul du poids de l'emballage et des produits choisis\n Permet ensuite de le comparer au solde envoyer par le client pour vérifier que tout corresponds" as N1
+
+N1 .. Calcul_des_frais_de_ports
+
+@enduml
