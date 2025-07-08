@@ -1,9 +1,60 @@
 @startuml brouillon global
+left to right direction
+skinparam linetype ortho
 
-package Application_chevre {
-    package Gestion_colis {}
-    package Gestion_stock {}
-    package Administrative {}
+actor Client
+actor Operateur_colis
+actor Operateur_stock 
+actor Administrateur 
+
+package Application_intranet_Digicheese {
+
+    package Colis {
+        rectangle Gestion_des_commandes {
+            
+        }
+        rectangle Suvie_des_commandes {
+
+        }
+    }
+
+    package Stock {
+        rectangle Gestion_stock_objet {
+
+        }
+        rectangle Gestion_stock_emballage {
+
+        }
+    }
+
+    package Administration {
+        rectangle Gestion_des_articles {
+
+        }
+        rectangle Gestion_Frais_de_Pords {
+
+        }
+        rectangle Gestion_Compte_Client {
+
+        }
+        rectangle Statistique {
+
+        }
+        rectangle Gestion_Embllage {
+
+        }
+    }
+
+    
 }
+
+Client -- Gestion_Compte_Client
+Administrateur -- Administration
+Operateur_colis -- Colis
+Operateur_stock -- Stock
+
+Colis <--> Stock
+Administration <--> Stock
+Administration <--> Colis
 
 @enduml
