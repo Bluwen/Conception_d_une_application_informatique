@@ -30,8 +30,11 @@ Créer_une_commande <-- Gérer_une_commande : <<extend>>
 
 Gérer_une_commande <-- Validation_du_conditionnement : <<extend>>
 
-note "Ici le calcul des frais de ports fait références calcul du poids de l'emballage et des produits choisis\n Permet ensuite de le comparer au solde envoyer par le client pour vérifier que tout corresponds" as N1
+note "Ici le calcul des frais de ports fait références calcul du poids de l'emballage et des produits choisis\nPermet ensuite de le comparer au solde envoyer par le client pour vérifier que tout corresponds" as N1
+note "La validation du conditionnement corresponds à la validation\ndes frais de ports de la commande par rapport au solde verser par le client" as N2
 
 N1 .. Calcul_des_frais_de_ports
+N2 .. Validation_du_conditionnement
 
+title Cas d'Utilisation de la gestion d'une commande dans le package colis
 @enduml
