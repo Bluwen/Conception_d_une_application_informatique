@@ -57,4 +57,6 @@ Colis <--> Stock
 Administration <--> Stock
 Administration <--> Colis
 
+title Schéma global de l'application Digicheese
+
 @enduml
