@@ -1,5 +1,5 @@
 @startuml class brooullion
-skinparam groupInheritance 4
+skinparam groupInheritance 2
 
 package Model {
     class client {
@@ -73,39 +73,61 @@ Emballage -- commande : va contenir la commande
 
 
 package Logique_metier {
-    interface Creation_de_commande {
+
+    package Gestion_de_commande {
+        interface Creation_de_commande {
         + CreerCommande()
         + setNext()
+        }
+
+        abstract Base_Creation_de_commande {
+            - next : Handler
+            + setNext(Handler)
+            + CreerCommande()
+        } 
+
+        class Handler_Produits{
+            + ChoixProduits()
+            + VerificationDesStocksProduits()
+            + setNext(Handler)
+        }
+
+        class Handler_Emballage {
+            + ChoixEmballage()
+            + VerificationDesStockEmballage()
+            + setNext(Handler)
+        }
+
+        class Handler_conditionnement {
+            + CalculDesFraisDePorts()
+            + ValidationDesFraisDePorts()
+            + setNext(Handler)
+        }
+
+        class Handler_suivie_commande {
+            + ValiderLeNumeroDeSuivie()
+            + setNext(Handler)
+        }
     }
 
-    abstract Base_Creation_de_commande {
-        - next : Handler
-        + setNext(Handler)
-        + CreerCommande()
-    } 
+    package Communication {
 
-    class Handler_Produits{
-        + ChoixProduits()
-        + VerificationDesStocksProduits()
-        + setNext(Handler)
-    }
+        class Mail_personaliser {
+            ChoixClientAContacter()
+        }
 
-    class Handler_Emballage {
-        + ChoixEmballage()
-        + VerificationDesStockEmballage()
-        + setNext(Handler)
-    }
+        class Newsletters {
+            ListeClients()
+            GenerationCorpsMails(fichier_texte)
+        }
 
-    class Handler_conditionnement {
-        + CalculDesFraisDePorts()
-        + ValidationDesFraisDePorts()
-        + setNext(Handler)
+        abstract Mail {
+            + Corps_mail : string
+            VerficiationMail()
+            EnvoyerMail()
+        }
     }
-
-    class Handler_suivie_commande {
-        + ValiderLeNumeroDeSuivie()
-        + setNext(Handler)
-    }
+    
 }
 
 Creation_de_commande <|.. Base_Creation_de_commande
@@ -114,6 +136,9 @@ Base_Creation_de_commande <|-- Handler_Emballage
 Base_Creation_de_commande <|-- Handler_conditionnement
 Base_Creation_de_commande <|-- Handler_suivie_commande
 
+
+Mail <|-- Mail_personaliser
+Mail <|-- Newsletters
 
 
 
