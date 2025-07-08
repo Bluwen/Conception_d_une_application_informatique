@@ -127,6 +127,35 @@ package Logique_metier {
             EnvoyerMail()
         }
     }
+
+    package Impression {
+
+        interface Impression_documents{
+            +ImprimerDocuments()
+        }
+
+        abstract Impression_Documents{
+            +ImprimerDocuments()
+        }
+
+        class bouton {
+            pas sur de le garder
+            + ImprimerDocuments()
+        }
+
+        class Impression_liste_client {
+            + ImprimerDocuments(liste_client)
+        }
+
+        class Impression_commande_client {
+            + ImprimerDocuments(commande)
+        }
+
+        class Impression_rapport_statistique {
+            + ImprimerDocuments(rapport_statistique)
+        }
+
+    }
     
 }
 
@@ -141,9 +170,11 @@ Mail <|-- Mail_personaliser
 Mail <|-- Newsletters
 
 
-
-
-
+Impression_documents <|.. Impression_Documents
+Impression_Documents <|-- Impression_commande_client
+Impression_Documents <|-- Impression_liste_client
+Impression_Documents <|-- Impression_rapport_statistique
+Impression_Documents <|-- bouton
 
 
 
