@@ -1,0 +1,77 @@
+@startuml Cas d'utilisation gestion des stocks emballage
+
+actor Opérateur_stock
+actor Administrateur
+
+package Application_intranet_Digicheese {
+    
+    'usecase Ajouter_un_nouvel_objet
+    'usecase Modifier_les_données_d_un_objet
+
+    usecase Gestion_du_stock_Emballage
+    usecase Gestion_du_stock_Timbre
+    
+    usecase Verifier_le_nombre_d_emballage_disponible
+    usecase Signaler_la_rupture_de_stock_d_emballage
+    usecase Commander_des_emballages
+
+    usecase Verifier_le_nombre_de_timbre_disponible
+    usecase Signaler_la_rupture_de_stock_de_timbre
+    usecase Commander_des_timbres
+
+    usecase Consulter_l_emplacement_d_un_type_d_emballages
+    usecase Consulter_l_emplacement_d_un_emballages
+
+    usecase Consulter_l_emplacement_d_un_type_de_timbre
+    usecase Consulter_l_emplacement_d_un_timbre
+
+    usecase Ajouter_des_lots_d_emballages
+
+    usecase Ajouter_des_lots_de_timbre
+
+}
+
+Administrateur -|> Opérateur_stock
+
+'Administrateur -- Ajouter_un_nouvel_objet
+'Administrateur -- Modifier_les_données_d_un_objet
+
+Opérateur_stock -- Gestion_du_stock_Emballage
+Gestion_du_stock_Emballage <-- Verifier_le_nombre_d_emballage_disponible : <<extend>>
+Verifier_le_nombre_d_emballage_disponible <-- Signaler_la_rupture_de_stock_d_emballage : <<extend>>
+Verifier_le_nombre_d_emballage_disponible <-- Commander_des_emballages : <<extends>>
+
+Gestion_du_stock_Emballage <-- Consulter_l_emplacement_d_un_type_d_emballages : <<extends>>
+Consulter_l_emplacement_d_un_type_d_emballages <-- Consulter_l_emplacement_d_un_emballages : <<extends>>
+
+Gestion_du_stock_Emballage <-- Ajouter_des_lots_d_emballages : <<extends>>
+
+note "Permet de consulter le status des emballages : réserver pour une commande, détruit, disponible..." as N1
+N1 .. Verifier_le_nombre_d_emballage_disponible
+
+note "permettrai de signaler aux personnes a charge de commender les goodies qu'il faut en faire" as N2
+N2 .. Commander_des_emballages
+
+note "Ajoute dans la base de données les nouveaux lots d'objets déjà présents dans la base de données" as N3
+N3 .. Ajouter_des_lots_d_emballages
+
+
+Opérateur_stock -- Gestion_du_stock_Timbre
+Gestion_du_stock_Timbre <-- Verifier_le_nombre_de_timbre_disponible : <<extend>>
+Verifier_le_nombre_de_timbre_disponible <-- Signaler_la_rupture_de_stock_de_timbre : <<extend>>
+Verifier_le_nombre_de_timbre_disponible <-- Commander_des_timbres : <<extends>>
+
+Gestion_du_stock_Timbre <-- Consulter_l_emplacement_d_un_type_de_timbre : <<extends>>
+Consulter_l_emplacement_d_un_type_de_timbre <-- Consulter_l_emplacement_d_un_timbre : <<extends>>
+
+Gestion_du_stock_Timbre <-- Ajouter_des_lots_de_timbre : <<extends>>
+
+note "Permet de consulter le status des emballages : réserver pour une commande, détruit, disponible..." as N4
+N4 .. Verifier_le_nombre_de_timbre_disponible
+
+note "permettrai de signaler aux personnes a charge de commender les goodies qu'il faut en faire" as N5
+N5 .. Commander_des_timbres
+
+note "Ajoute dans la base de données les nouveaux lots d'objets déjà présents dans la base de données" as N6
+N6 .. Ajouter_des_lots_de_timbre
+@enduml
