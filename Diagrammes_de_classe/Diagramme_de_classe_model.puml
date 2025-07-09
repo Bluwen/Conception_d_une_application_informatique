@@ -54,5 +54,6 @@ class TarifsPostaux {
 
 Client "1"-- "0..*" Commande : possède
 Commande "1" -- "1..*" Objet : possède
+Emballage "1" -- "1..*" Objet : contenir
 
 @enduml
