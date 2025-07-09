@@ -1,0 +1,58 @@
+@startuml Classe model
+
+class Client {
+    idClient : int
+    nom : string
+    prenom : string
+    genre : string
+    adressePostal : string
+    codePostal : int
+    ville : string
+    telephone : string
+    adresseMail : string
+    newsletters : boolean
+    {field} solde : décimal()
+}
+
+class Commande {
+    idCommande : int
+    quantiteDObjets : int
+    numeroDeSuivie : int
+    status : string
+    {field} prix : décimal ()
+    {field} poids : décimal ()
+}
+
+class Objet {
+    idObjet : int
+    nom : string
+    description : string
+    disponible : boolean
+    {field} poids : décimal ()
+    {field} prix : décimal ()
+}
+
+class Emballage {
+    idEmballage : int
+    nom : string
+    {field} poids : décimal ()
+    {field} prix : décimal ()
+}
+
+class Enseigne {
+    idEnseigne : int
+    nom : string
+    ville : string
+    codePostal : int
+}
+
+class TarifsPostaux {
+    poidsMaximum : int
+    {field} prix : décimal ()
+}
+
+
+Client "1"-- "0..*" Commande : possède
+Commande "1" -- "1..*" Objet : possède
+
+@enduml
