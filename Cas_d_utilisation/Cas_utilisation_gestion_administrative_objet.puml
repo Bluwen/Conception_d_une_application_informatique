@@ -1,0 +1,26 @@
+@startuml Gestion administrative d'un objet
+
+actor Administrateur
+
+package Application_intranet_Digicheese {
+    usecase Créer_un_objet
+    usecase Gérer_un_objet
+
+    usecase Modifier_les_caractéristiques_de_l_objet
+
+    usecase Ajouter_les_emballages_possibles
+}
+
+Administrateur -- Créer_un_objet
+Administrateur -- Gérer_un_objet
+
+Créer_un_objet --> Gérer_un_objet : <<include>>
+
+Gérer_un_objet --> Modifier_les_caractéristiques_de_l_objet : <<extend>>
+Gérer_un_objet --> Ajouter_les_emballages_possibles : <<extend>>
+
+note "L'administrateur peut modifier : le poids, le prix, la description..." as N1
+N1 .. Modifier_les_caractéristiques_de_l_objet
+
+
+@enduml
