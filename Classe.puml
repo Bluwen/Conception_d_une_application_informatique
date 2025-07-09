@@ -1,4 +1,4 @@
-@startuml class brooullion
+@startuml diagramme de classe total
 skinparam groupInheritance 2
 
 package Model {

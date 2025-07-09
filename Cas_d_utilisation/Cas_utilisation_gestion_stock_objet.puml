@@ -1,0 +1,38 @@
+@startuml Cas d'utilisation gestion des stocks objets
+
+actor Opérateur_stock
+actor Administrateur
+
+package Application_intranet_Digicheese {
+    
+    usecase Ajouter_un_nouvel_objet
+    usecase Modifier_les_données_d_un_objet
+
+    usecase Gestion_du_stock_objets
+    
+    usecase Verifier_le_nombre_d_objet_disponible
+    usecase Signaler_la_rupture_de_stock
+    usecase Commander_des_objets
+
+    usecase Consulter_l_emplacement_d_type_objets
+    usecase Consulter_l_emplacement_d_un_objet
+
+}
+
+Administrateur -|> Opérateur_stock
+
+Administrateur -- Ajouter_un_nouvel_objet
+Administrateur -- Modifier_les_données_d_un_objet
+
+Opérateur_stock -- Gestion_du_stock_objets
+Gestion_du_stock_objets <-- Verifier_le_nombre_d_objet_disponible : <<extend>>
+Verifier_le_nombre_d_objet_disponible <-- Signaler_la_rupture_de_stock : <<extend>>
+Verifier_le_nombre_d_objet_disponible <-- Commander_des_objets : <<extends>>
+
+Gestion_du_stock_objets <-- Consulter_l_emplacement_d_type_objets : <<extends>>
+Consulter_l_emplacement_d_type_objets <-- Consulter_l_emplacement_d_un_objet : <<extends>>
+
+note "Permet de consulter le status des objets : réserver pour une commande, détruit, disponible..." as N1
+N1 .. Verifier_le_nombre_d_objet_disponible
+
+@enduml
