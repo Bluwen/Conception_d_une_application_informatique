@@ -1,0 +1,26 @@
+@startuml Gestion ds frais de ports
+
+actor Administrateur
+
+package  app {
+    usecase Modifier_les_tarifs_postaux
+
+    package Cas_utilisation_gestion_administrative_objet {
+
+    }
+
+    package Cas_utilisation_gestion_administrative_emballage {
+
+    }
+}
+
+Administrateur -- Modifier_les_tarifs_postaux
+Administrateur -- Cas_utilisation_gestion_administrative_emballage
+Administrateur -- Cas_utilisation_gestion_administrative_objet
+
+
+note "Il peut influsencer les frais de port à travers la modification des prix et poids des objets et emballages" as N1
+N1 .. Cas_utilisation_gestion_administrative_emballage
+N1 .. Cas_utilisation_gestion_administrative_objet
+
+@enduml
