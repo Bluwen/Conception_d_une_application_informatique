@@ -1,0 +1,28 @@
+@startuml Rapport statistique
+
+actor Administrateur
+actor Operateur_stock
+actor Operateur_colis
+actor Operateur
+
+package App {
+    usecase Générer_un_rapport_statistique
+    usecase Choisir_des_données
+
+    usecase Imprimer_le_rapport
+
+}
+
+Administrateur --|> Operateur_colis
+Administrateur --|> Operateur_stock
+Operateur_colis --|> Operateur
+Operateur_stock --|> Operateur
+
+Operateur -- Générer_un_rapport_statistique
+Générer_un_rapport_statistique --> Choisir_des_données : <<include>>
+Générer_un_rapport_statistique <-- Imprimer_le_rapport : <<extends>>
+
+note "Les données peuvent être sur les objets, les clients, les positions gégoraphiques des envoies..." as N1
+N1 .. Choisir_des_données
+
+@enduml
