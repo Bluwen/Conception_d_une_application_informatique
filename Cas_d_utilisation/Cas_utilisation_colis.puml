@@ -3,6 +3,7 @@
 skinparam linetype polyline
 
 actor Operateur_colis
+actor Administrateur
 
 package Application_intranet_Digicheese {
     usecase Compte_client
@@ -20,6 +21,8 @@ package Application_intranet_Digicheese {
 
     usecase Impression_d_une_commande
 }
+
+Administrateur --|> Operateur_colis
 
 Operateur_colis -- Créer_une_commande
 Operateur_colis -- Gérer_une_commande

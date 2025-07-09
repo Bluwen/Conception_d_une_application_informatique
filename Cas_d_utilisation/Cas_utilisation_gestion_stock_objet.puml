@@ -5,8 +5,8 @@ actor Administrateur
 
 package Application_intranet_Digicheese {
     
-    usecase Ajouter_un_nouvel_objet
-    usecase Modifier_les_données_d_un_objet
+    'usecase Ajouter_un_nouvel_objet
+    'usecase Modifier_les_données_d_un_objet
 
     usecase Gestion_du_stock_objets
     
@@ -17,12 +17,14 @@ package Application_intranet_Digicheese {
     usecase Consulter_l_emplacement_d_type_objets
     usecase Consulter_l_emplacement_d_un_objet
 
+    usecase Ajouter_des_lots_d_objet
+
 }
 
 Administrateur -|> Opérateur_stock
 
-Administrateur -- Ajouter_un_nouvel_objet
-Administrateur -- Modifier_les_données_d_un_objet
+'Administrateur -- Ajouter_un_nouvel_objet
+'Administrateur -- Modifier_les_données_d_un_objet
 
 Opérateur_stock -- Gestion_du_stock_objets
 Gestion_du_stock_objets <-- Verifier_le_nombre_d_objet_disponible : <<extend>>
@@ -32,7 +34,14 @@ Verifier_le_nombre_d_objet_disponible <-- Commander_des_objets : <<extends>>
 Gestion_du_stock_objets <-- Consulter_l_emplacement_d_type_objets : <<extends>>
 Consulter_l_emplacement_d_type_objets <-- Consulter_l_emplacement_d_un_objet : <<extends>>
 
+Gestion_du_stock_objets <-- Ajouter_des_lots_d_objet : <<extends>>
+
 note "Permet de consulter le status des objets : réserver pour une commande, détruit, disponible..." as N1
 N1 .. Verifier_le_nombre_d_objet_disponible
 
+note "permettrai de signaler aux personnes a charge de commender les goodies qu'il faut en faire" as N2
+N2 .. Commander_des_objets
+
+note "Ajoute dans la base de données les nouveaux lots d'objets déjà présents dans la base de données" as N3
+N3 .. Ajouter_des_lots_d_objet
 @enduml
