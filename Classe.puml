@@ -59,19 +59,27 @@ package Model {
     class Utilisateur {
         Id_utilisateur : int
         Nom : string
+        Mot_de_passe : string
     }
 
     class Timbre {
         Poids_maximum : int
         {field} Prix : décimal ()
     }
+
+    class Administrateur {
+        
+    }
 }
 
 client "0..*" -- "1" commande : Passe
-commande -- objet : peut être un agregat à revoir
-Emballage -- objet : peut en contenir plusieurs
-Emballage -- commande : va contenir la commande
-
+commande "1..1" -- "1..*" objet : peut être un agregat à revoir
+Emballage "1..1"-- "1..*"objet : peut en contenir plusieurs
+'Emballage -- commande : va contenir la commande
+Emballage "1..1"-- "1..*"Timbre : peut en avoir plusieurs
+Utilisateur "1..*" -- "0..*"client : implemente
+'Enseigne -- client : va acheter
+Administrateur --|> Utilisateur
 
 package Logique_metier {
 
@@ -169,6 +177,27 @@ package Logique_metier {
         
     }
     
+
+    package Service_CRUD {
+        class Service_client {
+
+        }
+        class Service_objet {
+
+        }
+        class Service_commande {
+
+        }
+        class Service_Emballage {
+
+        }
+        class Service_Utilisateur {
+
+        }
+        class Service_Timbre {
+
+        }
+    }
 }
 
 'Creation_de_commande <|.. Base_Creation_de_commande
