@@ -1,0 +1,26 @@
+@startuml Gestion administrative d'un emballage
+
+actor Administrateur
+
+package Application_intranet_Digicheese {
+    usecase Créer_un_emballage
+    usecase Gérer_un_emballage
+
+    usecase Modifier_les_caractéristiques_de_l_emballages
+
+    usecase Ajouter_les_objets_possibles
+}
+
+Administrateur -- Créer_un_emballage
+Administrateur -- Gérer_un_emballage
+
+Créer_un_emballage --> Gérer_un_emballage : <<include>>
+
+Gérer_un_emballage <-- Modifier_les_caractéristiques_de_l_emballages : <<extend>>
+Gérer_un_emballage <-- Ajouter_les_objets_possibles : <<extend>>
+
+note "L'administrateur peut modifier : le poids, le prix, la description..." as N1
+N1 .. Modifier_les_caractéristiques_de_l_emballages
+
+
+@enduml

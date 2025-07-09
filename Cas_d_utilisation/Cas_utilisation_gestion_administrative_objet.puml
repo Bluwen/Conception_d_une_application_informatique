@@ -16,8 +16,8 @@ Administrateur -- Gérer_un_objet
 
 Créer_un_objet --> Gérer_un_objet : <<include>>
 
-Gérer_un_objet --> Modifier_les_caractéristiques_de_l_objet : <<extend>>
-Gérer_un_objet --> Ajouter_les_emballages_possibles : <<extend>>
+Gérer_un_objet <-- Modifier_les_caractéristiques_de_l_objet : <<extend>>
+Gérer_un_objet <-- Ajouter_les_emballages_possibles : <<extend>>
 
 note "L'administrateur peut modifier : le poids, le prix, la description..." as N1
 N1 .. Modifier_les_caractéristiques_de_l_objet
