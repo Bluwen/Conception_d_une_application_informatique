@@ -18,7 +18,6 @@ class Commande {
     idCommande : int
     quantiteDObjets : int
     numeroDeSuivie : int
-    status : string
     {field} prix : décimal ()
     {field} poids : décimal ()
 }
@@ -57,6 +56,17 @@ class AdressePostal {
     ville : string
     codePostal : int
 }
+
+enum Etat {
+    PREPARATION
+    ATTENTE DE VALIDATION DE CONDTIONNEMENT
+    CONDITIONNEMENT VALIDER
+    EXPEDIER
+    TERMINER
+    ANNULEE
+    ERREUR
+}
+
 
 class Conditionnement {
 
@@ -107,5 +117,7 @@ Operateur <|-- OperateurColis
 Operateur <|-- OperateurStock
 OperateurStock <|-- Administrateur
 OperateurColis <|-- Administrateur
+
+Commande "0..1" -- "1"Etat :état
 
 @enduml
