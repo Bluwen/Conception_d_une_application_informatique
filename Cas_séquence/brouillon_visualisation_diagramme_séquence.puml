@@ -1,0 +1,21 @@
+@startuml brouillon
+
+actor Operateur_colis
+
+participant Chesse
+
+Operateur_colis -> Chesse : GérerCommande(idCommande)
+activate Chesse
+
+Chesse -> Chesse : ChercherCommande(idCommande)
+Chesse --> Chesse : Commande
+
+Operateur_colis -> Chesse : ModifierEtatCommande()
+Chesse -> Commande : ChangementEtat()
+activate Commande
+Commande --> Chesse : Etat de la commande mis à jour
+deactivate Commande
+Chesse --> Operateur_colis : L'état de la commande a été mis à jour
+
+
+@enduml

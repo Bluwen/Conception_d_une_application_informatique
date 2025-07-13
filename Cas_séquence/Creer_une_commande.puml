@@ -1,0 +1,34 @@
+@startuml brouillon
+
+actor Operateur_colis
+
+participant Chesse
+
+ref over Operateur_colis, Chesse, Client : le client doit etre trouver avant et la commande ne peut être fait que depuis le client
+
+Operateur_colis -> Chesse : CréerCommande()
+activate Chesse
+
+Chesse -> Commande : IntialiserCommande()
+activate Commande 
+
+Commande -> Client : DemandeID()
+Client --> Commande : RetourneID
+
+'Commande -> Chesse : DemanderDonner()
+'Chesse -> Operateur_colis : RentrerInformationCommande()
+
+Operateur_colis -> Chesse : ChoixDesProduit(nomObjet, nombreObjet)
+Chesse -> Chesse : RechercherListesDObjet(nomObjet)
+Chesse --> Chesse : Retourne une ListeDObjets
+Chesse -> Chesse : RechercherObjetDisponible(ListeDObjets, nombreObjet)
+Chesse --> Chesse : Liste ou juste id d'objet
+Chesse -> Commande : AjouterObjets(Liste ou id objet)
+Chesse -> Objet : ChangementDeDisponiblite(Rendre indisponible)
+activate Objet
+
+Objet --> Chesse : Le changement de status a été fait
+
+ref over Operateur_colis, Chesse, Commande, Emballage : Choix de l'emballage a ajouter à la commande
+
+@enduml
