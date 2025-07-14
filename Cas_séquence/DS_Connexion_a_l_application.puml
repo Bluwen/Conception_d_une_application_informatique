@@ -1,0 +1,11 @@
+@startuml Connexion à l'APPLICATION
+
+actor Operateur_colis
+
+Operateur_colis -> App : Connexion(identifiant, motdepasse)
+App -> App : RechercherCompteUtilisateur(identifiant, motdepasse)
+App --> App : Utilisateur valide
+App --> Operateur_colis : Connexion autorisé
+
+
+@enduml

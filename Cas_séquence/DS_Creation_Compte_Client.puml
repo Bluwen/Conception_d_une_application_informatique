@@ -1,0 +1,18 @@
+@startuml Création de compte client
+
+actor Operation_colis
+
+Operation_colis -> App : RechercherUnClient(nom,prenom)
+App -> App : ChercherCompteClient(nom,prenom)
+App --> App : Compte client non trouver
+App --> Operation_colis : Client non trouver
+
+Operation_colis -> App : CreerUnCompteClient(nom, prenom, ...)
+App ->  CompteClient : IntialiserUnNouveauxCompte(nom, prenom, ...)
+
+Operation_colis -> App : AjouterAdresse(ville, codepostal, adresse)
+App -> AdressePostal : NouvelleAdresse(idClient, ville, codepostal, adresse)
+Operation_colis -> App : AjouterUnSolde(solde)
+App -> CompteClient : AjouterSolde(solde)
+
+@enduml
