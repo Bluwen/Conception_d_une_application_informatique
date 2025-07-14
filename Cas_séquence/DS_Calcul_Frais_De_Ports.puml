@@ -1,0 +1,29 @@
+@startuml Calcul des frais de ports
+
+actor Operateur_colis
+
+Operateur_colis -> App : GererCommande(idCommande)
+App -> App : ChercherCommande(idCommande)
+App --> App : Commande trouver
+App --> Operateur_colis : Affiche la commande
+
+Operateur_colis -> App : AfficherFraisDePorts(idCommande)
+
+App -> Commande : AfficherPoids()
+Commande --> App : Retourne le poids
+
+App -> App : RechercherTimbres(poidsCommande)
+App --> App : Retourne timbre disponible correspondant
+
+App -> TarifsPostaux : AfficherPrix(idTimbre)
+TarifsPostaux --> App : Retourne le prix
+
+App -> Commande : AfficherPrix(idCommande)
+Commande --> App : Retourne le prix
+
+App -> App : CalculFraisDePorts(prixCommande, prixTimbre)
+App --> App : retourne le résultat du calcul
+
+App --> Operateur_colis : Affiche les frais de ports et le timbre correspondant
+
+@enduml

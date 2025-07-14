@@ -24,6 +24,10 @@ Chesse --> Chesse : Retourne une ListeDObjets
 Chesse -> Chesse : RechercherObjetDisponible(ListeDObjets, nombreObjet)
 Chesse --> Chesse : Liste ou juste id d'objet
 Chesse -> Commande : AjouterObjets(Liste ou id objet)
+
+Chesse -> Commande : AjouterPrix(prixobjets * nbObjets)
+Commande --> Chesse : Prix mis à jour
+
 Chesse -> Objet : ChangementDeDisponiblite(Rendre indisponible)
 activate Objet
 

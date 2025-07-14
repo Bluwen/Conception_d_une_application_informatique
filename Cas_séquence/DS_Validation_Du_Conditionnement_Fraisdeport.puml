@@ -1,0 +1,39 @@
+@startuml validation frais de port/conditionnement
+
+actor Operateur_colis
+
+Operateur_colis -> App : GererCommande(idCommande)
+App -> App : ChercherCommande(idCommande)
+App --> App : Commande trouver
+App --> Operateur_colis : Affiche la commande
+
+Operateur_colis -> App : ValiderFraisDePorts(idCommande)
+
+App -> Commande : AfficherPoids()
+Commande --> App : Retourne poids
+
+App --> Operateur_colis : Afficher poids commande
+App -> Operateur_colis : ValiderPoidsCommande()
+Operateur_colis --> App : Valide le poids de la commande
+
+App -> Commande : AfficherPrix()
+Commande --> App : Retourne prix
+
+App -> Commande : RechercherClient()
+Commande --> App : Retourne l'id du client
+
+App -> CompteClient : AfficherSolde()
+CompteClient --> App : Retourne le solde du client
+
+App -> App : ComparaisonPrix(SoldeClient, PrixCommande)
+App --> App : Les prix correspondent
+
+App --> Operateur_colis : Le solde du client et les frais de la commande correspondent
+
+App -> Operateur_colis : ValiderCondtionnement()
+Operateur_colis --> App : Valide le condtionnement
+
+App -> Commande : ChangementDEtat()
+Commande --> App : Etat mis à jour
+
+@enduml
