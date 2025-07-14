@@ -1,0 +1,29 @@
+@startuml Ajouter un emballage à une commande
+
+actor Operateur_colis
+
+Operateur_colis -> App : GererCommande(idCommande)
+App -> App : ChercherCommande(idCommande)
+App --> App : Commande trouver
+App --> Operateur_colis : Affiche la commande
+
+Operateur_colis -> App : RechercherUnEmballage(nomObjets, nombreObjets)
+App -> App : RechercherTypeEmballageDisponible(nomObjets, nombreObjets)
+App --> App : Liste d'emballage correspondant
+
+App --> Operateur_colis : Affichage de la liste des emballages
+
+Operateur_colis -> App : ChoixEmballage(idEmballage)
+App -> Emballage : ModificationDuStatus(idEmballage, Indisponible)
+Emballage --> App : Status modifier
+
+App -> Commande : AjouterEmballage(idEmballage)
+Commande --> App : Emballage bien ajouter
+
+App -> Commande : MiseAJourPoids(poidsEmballage)
+Commande --> App : Poids mis à jour
+
+App -> Commande : MiseAJourPrix(prixEmballage)
+Commande --> App : Prix mis à jour
+
+@enduml

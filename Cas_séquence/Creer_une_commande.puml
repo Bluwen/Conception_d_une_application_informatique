@@ -9,11 +9,11 @@ ref over Operateur_colis, Chesse, Client : le client doit etre trouver avant et 
 Operateur_colis -> Chesse : CréerCommande()
 activate Chesse
 
-Chesse -> Commande : IntialiserCommande()
+Chesse -> Commande : IntialiserCommande(idClient)
 activate Commande 
 
-Commande -> Client : DemandeID()
-Client --> Commande : RetourneID
+'Commande -> Client : DemandeID()
+'Client --> Commande : RetourneID
 
 'Commande -> Chesse : DemanderDonner()
 'Chesse -> Operateur_colis : RentrerInformationCommande()
