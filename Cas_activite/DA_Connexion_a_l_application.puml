@@ -1,0 +1,13 @@
+@startuml connexion a l'application
+
+start
+:Affichage écran de connexion;
+
+repeat :L'utilisateur rentre ses identifiants;
+repeat while (Identifiant correcte) is (Non) not (Oui);
+
+:L'utilisateur est redirigé vers la page d'acceuil de l'application;
+stop
+
+
+@enduml
