@@ -1,18 +1,19 @@
 @startuml création compte client da
-|Swimlane1|
+|Operateur_colis|
 start
 
 
 :Rechercher un client;
-
+|Application|
 if (Le client existe) then (Oui)
     :L'application affiche le compte client existant;
     stop
 else (Non)
     :L'application renvoie un message\n que le client n'existe pas;
 
+|Operateur_colis|
 :L'utilisateur signale qu'il souhaite créer un nouveau compte client;
-|Swimlane2|
+|Application|
 repeat :L'application affiche les champs à compléter pour un nouveau compte client;
 repeat while (Verification que tous les champs ont bien été complétés) is (Non) not (Oui)
 
