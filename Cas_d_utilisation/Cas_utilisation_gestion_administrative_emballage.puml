@@ -1,26 +1,26 @@
 @startuml Gestion administrative d'un emballage
 
-actor Administrateur
+actor "Administateur" 
 
-package Application_intranet_Digicheese {
-    usecase Créer_un_emballage
-    usecase Gérer_un_emballage
+package "Application interne DigiCheese" {
+    usecase "Créer un emballage"
+    usecase "Gérer un emballage"
 
-    usecase Modifier_les_caractéristiques_de_l_emballages
+    usecase "Modifier les caractéristiques de l'emballage"
 
-    usecase Ajouter_les_objets_possibles
+    usecase "Ajouter les types d'objets possibles"
 }
 
-Administrateur -- Créer_un_emballage
-Administrateur -- Gérer_un_emballage
+"Administateur" -- "Créer un emballage"
+"Administateur" -- "Gérer un emballage"
 
-Créer_un_emballage --> Gérer_un_emballage : <<include>>
+"Créer un emballage" --> "Gérer un emballage" : <<include>>
 
-Gérer_un_emballage <-- Modifier_les_caractéristiques_de_l_emballages : <<extend>>
-Gérer_un_emballage <-- Ajouter_les_objets_possibles : <<extend>>
+"Gérer un emballage" <-- "Modifier les caractéristiques de l'emballage" : <<extend>>
+"Gérer un emballage" <-- "Ajouter les types d'objets possibles" : <<extend>>
 
 note "L'administrateur peut modifier : le poids, le prix, la description..." as N1
-N1 .. Modifier_les_caractéristiques_de_l_emballages
+N1 .. "Modifier les caractéristiques de l'emballage"
 
-
+title Diagramme de cas d'utilisation de la gestion des emballages dans le package Administateur
 @enduml

@@ -1,46 +1,44 @@
-@startuml brouillon global
+@startuml Schéma global de l'application interne DigiCheese
 left to right direction
 skinparam linetype ortho
 
-actor Client
-actor Operateur_colis
-actor Operateur_stock 
-actor Administrateur 
+'actor Client
+actor "Opérateur colis"
+actor "Opérateur stock" 
+actor "Administrateur" 
 
-package Application_intranet_Digicheese {
+package "Application interne DigiCheese"  {
 
-    package Colis {
-        rectangle Gestion_des_commandes {
+    package "Colis" {
+        rectangle "Gestion des commandes" {
             
         }
-        rectangle Suvie_des_commandes {
+        'rectangle Suvie des commandes {}
+    }
+
+    package "Stock" {
+        rectangle "Gestion des stock d'objets" {
+
+        }
+        rectangle "Gestion des stock d'emballages" {
 
         }
     }
 
-    package Stock {
-        rectangle Gestion_stock_objet {
+    package "Administration" {
+        rectangle "Gestion des objets" {
 
         }
-        rectangle Gestion_stock_emballage {
+        rectangle "Gestion des frais de ports" {
 
         }
-    }
-
-    package Administration {
-        rectangle Gestion_des_articles {
+        rectangle "Gestion des comptes clients" {
 
         }
-        rectangle Gestion_Frais_de_Pords {
+        rectangle "Produtcion de statistiques" {
 
         }
-        rectangle Gestion_Compte_Client {
-
-        }
-        rectangle Statistique {
-
-        }
-        rectangle Gestion_Embllage {
+        rectangle "Gestion des embllages" {
 
         }
     }
@@ -48,15 +46,15 @@ package Application_intranet_Digicheese {
     
 }
 
-Client -- Gestion_Compte_Client
-Administrateur -- Administration
-Operateur_colis -- Colis
-Operateur_stock -- Stock
+'Client -- Gestion Compte Client
+"Administrateur" -- "Administration"
+"Opérateur colis" -- "Colis"
+"Opérateur stock" -- "Stock"
 
-Colis <--> Stock
-Administration <--> Stock
-Administration <--> Colis
+"Colis" <--> "Stock"
+"Administration" <--> "Stock"
+"Administration" <--> "Colis"
 
-title Schéma global de l'application Digicheese
+title Schéma global de l'application interne Digicheese
 
 @enduml

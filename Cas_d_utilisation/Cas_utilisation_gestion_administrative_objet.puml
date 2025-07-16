@@ -1,26 +1,26 @@
 @startuml Gestion administrative d'un objet
 
-actor Administrateur
+actor "Administateur" 
 
-package Application_intranet_Digicheese {
-    usecase Créer_un_objet
-    usecase Gérer_un_objet
+package "Application interne DigiCheese" {
+    usecase "Créer un objet"
+    usecase "Gérer un objet"
 
-    usecase Modifier_les_caractéristiques_de_l_objet
+    usecase "Modifier les caractéristiques de l'objet"
 
-    usecase Ajouter_les_emballages_possibles
+    usecase "Ajouter les emballages possibles"
 }
 
-Administrateur -- Créer_un_objet
-Administrateur -- Gérer_un_objet
+"Administateur" -- "Créer un objet"
+"Administateur" -- "Gérer un objet"
 
-Créer_un_objet --> Gérer_un_objet : <<include>>
+"Créer un objet" --> "Gérer un objet" : <<include>>
 
-Gérer_un_objet <-- Modifier_les_caractéristiques_de_l_objet : <<extend>>
-Gérer_un_objet <-- Ajouter_les_emballages_possibles : <<extend>>
+"Gérer un objet" <-- "Modifier les caractéristiques de l'objet" : <<extend>>
+"Gérer un objet" <-- "Ajouter les emballages possibles" : <<extend>>
 
 note "L'administrateur peut modifier : le poids, le prix, la description..." as N1
-N1 .. Modifier_les_caractéristiques_de_l_objet
+N1 .. "Modifier les caractéristiques de l'objet"
 
-
+title Diagramme de cas d'utilisation de la gestion des objets dans le package Administateur
 @enduml

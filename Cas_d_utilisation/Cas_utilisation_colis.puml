@@ -1,48 +1,49 @@
-@startuml Cas_utilisation_colis
+@startuml Cas d'utilisation de la gestion de commande côté colis
 'left to right direction
 skinparam linetype polyline
 
-actor Operateur_colis
-actor Administrateur
+actor "Opérateur colis"
+actor "Administrateur"
 
-package Application_intranet_Digicheese {
-    usecase Compte_client
+package "Application interne DigiCheese"  {
+    usecase "Accèder au compte client" 
 
-    usecase Créer_une_commande
-    usecase Gérer_une_commande
+    usecase "Créer une commande" 
+    usecase "Gérer une commande" 
 
-    usecase Choix_des_produits
-    usecase Choix_emballage
+    usecase "Choissir les objets" 
+    usecase "Choissir les emballages" 
+    usecase "Choissir le tarif postal"
 
-    usecase Calcul_des_frais_de_ports
-    usecase Validation_du_conditionnement
+    'usecase Calcul_des_frais_de_ports
+    usecase "Valider les frais de ports" 
 
-    usecase Ajout_d_un_numero_de_suivi
+    usecase "Ajouter un numéro de suivi" 
 
-    usecase Impression_d_une_commande
+    usecase "Imprimer une commande" 
 }
 
-Administrateur --|> Operateur_colis
+"Administrateur" --|> "Opérateur colis"
 
-Operateur_colis -- Créer_une_commande
-Operateur_colis -- Gérer_une_commande
-Operateur_colis -- Impression_d_une_commande
+"Opérateur colis" -- "Créer une commande" 
+"Opérateur colis" -- "Gérer une commande" 
+"Opérateur colis" -- "Imprimer une commande" 
 
-Créer_une_commande --> Compte_client : <<include>>
-Créer_une_commande --> Choix_des_produits : <<include>>
-Choix_des_produits --> Choix_emballage : <<include>>
-Choix_emballage --> Calcul_des_frais_de_ports : <<include>>
+"Créer une commande"  --> "Accèder au compte client"  : <<include>>
+"Créer une commande"  --> "Choissir les objets"  : <<include>>
+"Choissir les objets"  --> "Choissir les emballages"  : <<include>>
+"Choissir les emballages"  --> "Choissir le tarif postal" : <<include>>
 
-Créer_une_commande <-- Gérer_une_commande : <<extend>>
+"Créer une commande"  <-- "Gérer une commande"  : <<extend>>
 
-Gérer_une_commande <-- Validation_du_conditionnement : <<extend>>
-Gérer_une_commande <-- Ajout_d_un_numero_de_suivi : <<extend>>
+"Gérer une commande"  <-- "Valider les frais de ports"  : <<extend>>
+"Gérer une commande"  <-- "Ajouter un numéro de suivi"  : <<extend>>
 
-note "Ici le calcul des frais de ports fait références calcul du poids de l'emballage et des produits choisis\nPermet ensuite de le comparer au solde envoyer par le client pour vérifier que tout corresponds" as N1
+'note "Ici le calcul des frais de ports fait références calcul du poids de l'emballage et des produits choisis\nPermet ensuite de le comparer au solde envoyer par le client pour vérifier que tout corresponds" as N1
 note "La validation du conditionnement corresponds à la validation\ndes frais de ports de la commande par rapport au solde verser par le client" as N2
 
-N1 .. Calcul_des_frais_de_ports
-N2 .. Validation_du_conditionnement
+'N1 .. Calcul_des_frais_de_ports
+N2 .. "Valider les frais de ports" 
 
-title Cas d'Utilisation de la gestion d'une commande dans le package colis
+title Diagramme de cas d'utilisation de la gestion d'une commande dans la partie Colis de l'application
 @enduml

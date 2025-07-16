@@ -1,52 +1,52 @@
-@startuml Compte_client
+@startuml Cas d'utilisation de la gestion de compte client côté administration
 skinparam linetype ortho
 
-actor Operateur_colis
-actor Administateur
+actor "Opérateur colis" 
+actor "Administateur" 
 
-package Application_intranet_Digicheese {
-    usecase Créer_un_compte_client
-    usecase Gérer_un_compte_client
-    usecase Ajouter_un_solde
-    usecase Modifier_les_informations_client
+package "Application interne DigiCheese" {
+    usecase "Créer un compte client"
+    usecase "Gérer un compte client"
+    usecase "Ajouter un solde"
+    usecase "Modifier les information du compte" 
 
-    usecase Ajouter_une_commande_a_un_client
-    usecase Consulter_les_commandes_en_cours_d_un_client
-    usecase Consulter_historique_des_commandes_d_un_client
+    usecase "Ajouter une commande au client" 
+    usecase "Consulter les commandes en cours du client" 
+    usecase "Consulter l'historique des commandes  du client" 
 
-    usecase Communiquer_avec_le_ou_les_clients
-    usecase Afficher_le_numéro_de_téléphone
-    usecase Réaliser_un_mail_personalisé
-    usecase Envoyer_une_newletters
+    usecase "Communiquer avec le ou les clients"
+    'usecase Afficher_le_numéro_de_téléphone
+    usecase "Envoyer un mail personalisé"
+    usecase "Envoyer une newletters"
 
-    usecase Suppression_d_un_compte_client
+    usecase "Supprimer un compte client"
 
-    usecase Impression_de_la_liste_des_clients
+    usecase "Imprimer la liste des clients"
 }
 
-Administateur -- Suppression_d_un_compte_client
+"Administateur"  -- "Supprimer un compte client"
 
-Operateur_colis <|-- Administateur
+"Opérateur colis"  <|-- "Administateur" 
 
-Operateur_colis -- Créer_un_compte_client
-Operateur_colis -- Gérer_un_compte_client
-Operateur_colis -- Impression_de_la_liste_des_clients
+"Opérateur colis"  -- "Créer un compte client"
+"Opérateur colis"  -- "Gérer un compte client" 
+"Opérateur colis"  -- "Imprimer la liste des clients"
 
-Créer_un_compte_client <-- Gérer_un_compte_client :<<include>>
+"Créer un compte client" <-- "Gérer un compte client"  :<<include>>
 
-Gérer_un_compte_client <-- Ajouter_un_solde : <<extend>>
-Gérer_un_compte_client <-- Ajouter_une_commande_a_un_client : <<extend>>
-Gérer_un_compte_client <-- Modifier_les_informations_client : <<extend>>
+"Gérer un compte client"  <-- "Ajouter un solde" : <<extend>>
+"Gérer un compte client"  <-- "Ajouter une commande au client"  : <<extend>>
+"Gérer un compte client"  <-- "Modifier les information du compte"  : <<extend>>
 
-Gérer_un_compte_client <-- Consulter_les_commandes_en_cours_d_un_client : <<extend>>
-Consulter_les_commandes_en_cours_d_un_client <-- Consulter_historique_des_commandes_d_un_client : <<extend>>
+"Gérer un compte client"  <-- "Consulter les commandes en cours du client"  : <<extend>>
+"Consulter les commandes en cours du client"  <-- "Consulter l'historique des commandes  du client"  : <<extend>>
 
-Operateur_colis -- Communiquer_avec_le_ou_les_clients
-Communiquer_avec_le_ou_les_clients <-- Afficher_le_numéro_de_téléphone : <<extend>>
-Communiquer_avec_le_ou_les_clients <-- Réaliser_un_mail_personalisé : <<extend>>
-Communiquer_avec_le_ou_les_clients <-- Envoyer_une_newletters : <<extend>>
+"Opérateur colis"  -- "Communiquer avec le ou les clients"
+'"Communiquer avec le ou les clients" <-- Afficher_le_numéro_de_téléphone : <<extend>>
+"Communiquer avec le ou les clients" <-- "Envoyer un mail personalisé" : <<extend>>
+"Communiquer avec le ou les clients" <-- "Envoyer une newletters" : <<extend>>
 
-title Cas d'Utilisation de la gestion d'un compte client dans le package Administration
+title Diagramme de cas d'utilisation de la gestion d'un compte client dans le package Administration de l'application
 
 
 @enduml

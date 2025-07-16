@@ -1,6 +1,6 @@
 @startuml Classe model
 
-class Client {
+class CompteClient {
     idClient : int
     nom : string
     prenom : string
@@ -11,15 +11,15 @@ class Client {
     telephone : string
     adresseMail : string
     newsletters : boolean
-    {field} solde : décimal()
+    {field} solde : decimal(5,2)
 }
 
 class Commande {
     idCommande : int
     quantiteDObjets : int
     numeroDeSuivie : int
-    {field} prix : décimal ()
-    {field} poids : décimal ()
+    {field} prix : decimal (5,2)
+    {field} poids : decimal (5,2)
 }
 
 class Objet {
@@ -27,15 +27,15 @@ class Objet {
     nom : string
     description : string
     disponible : boolean
-    {field} poids : décimal ()
-    {field} prix : décimal ()
+    {field} prix : decimal (5,2)
+    {field} poids : decimal (5,2)
 }
 
 class Emballage {
     idEmballage : int
     nom : string
-    {field} poids : décimal ()
-    {field} prix : décimal ()
+    {field} prix : decimal (5,2)
+    {field} poids : decimal (5,2)
 }
 
 class Enseigne {
@@ -47,7 +47,7 @@ class Enseigne {
 
 class TarifsPostaux {
     poidsMaximum : int
-    {field} prix : décimal ()
+    {field} prix : decimal (5,2)
 }
 
 class AdressePostal {
@@ -59,8 +59,8 @@ class AdressePostal {
 
 enum Etat {
     PREPARATION
-    ATTENTE DE VALIDATION DE CONDTIONNEMENT
-    CONDITIONNEMENT VALIDER
+    ATTENTE DE VALIDATION DES FRAIS DE PORTS
+    FRAIS DE PORTS VALIDES
     EXPEDIER
     TERMINER
     ANNULEE
@@ -68,11 +68,9 @@ enum Etat {
 }
 
 
-class Conditionnement {
+'class Conditionnement {}
 
-}
-
-diamond dia
+'diamond dia
 
 class Operateur {
     idOperateur : int
@@ -92,11 +90,11 @@ class Administrateur {
 
 }
 
-Client "1"-- "0..*" Commande : possède
+CompteClient "1"-- "0..*" Commande : possède
 Commande "1" -- "1..*" Objet : possède
 Emballage "1" -- "1..*" Objet : contenir
 
-Client "1" -- "1..*" AdressePostal : possède
+CompteClient "1" -- "1..*" AdressePostal : possède
 Commande "1..*" -- "1" AdressePostal : possède
 Enseigne "1..*" -- "1"AdressePostal : possède
 
@@ -104,14 +102,14 @@ note "Avoir une classe adresse à part permettra de faire des statistiques\n sur
 
 N1 .. AdressePostal
 
-Emballage -- dia
-Objet -- dia
-Commande -- dia
-TarifsPostaux -- dia
-dia .. Conditionnement
+'Emballage -- dia
+'Objet -- dia
+'Commande -- dia
+'TarifsPostaux -- dia
+'dia .. Conditionnement
 
-note "Suggestion pour calculer et montrer les liens pour le conditionnement" as N2
-N2 .. Conditionnement
+'note "Suggestion pour calculer et montrer les liens pour le conditionnement" as N2
+'N2 .. Conditionnement
 
 Operateur <|-- OperateurColis
 Operateur <|-- OperateurStock
@@ -119,5 +117,9 @@ OperateurStock <|-- Administrateur
 OperateurColis <|-- Administrateur
 
 Commande "0..1" -- "1"Etat :état
+
+TarifsPostaux "1" -- "1..*" Commande : possède
+
+Emballage"1..*" -- "1..*"Commande : contient
 
 @enduml
