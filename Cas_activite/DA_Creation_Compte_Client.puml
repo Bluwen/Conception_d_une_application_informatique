@@ -5,28 +5,30 @@ start
 
 :Rechercher un client;
 |Application|
-if (Le client existe) then (Oui)
+if (Le client existe) then (Non)
+    :L'application renvoie un message\n que le client n'existe pas;
+    |Operateur_colis|
+    :L'utilisateur signale qu'il souhaite créer un nouveau compte client;
+    |Application|
+    repeat :L'application affiche les champs à compléter pour un nouveau compte client;
+    repeat while (Verification que tous les champs ont bien été complétés) is (Non) not (Oui)
+
+    fork
+        :Création d'un compte client;
+        :CompteClient]
+
+    fork again
+        :Création d'une nouvelle adresse;
+        :AdressePostal]
+    end fork
+    :Un message previent l'utilisateur que le compte client a bien été créer;
+    :L'utilisateur est redirigé sur le compte client créer;
+
+    stop
+
+else (oui)
     :L'application affiche le compte client existant;
     stop
-else (Non)
-    :L'application renvoie un message\n que le client n'existe pas;
 
-|Operateur_colis|
-:L'utilisateur signale qu'il souhaite créer un nouveau compte client;
-|Application|
-repeat :L'application affiche les champs à compléter pour un nouveau compte client;
-repeat while (Verification que tous les champs ont bien été complétés) is (Non) not (Oui)
 
-fork
-    :Création d'un compte client;
-    :CompteClient]
-
-fork again
-    :Création d'une nouvelle adresse;
-    :AdressePostal]
-end fork
-:Un message previent l'utilisateur que le compte client a bien été créer;
-:L'utilisateur est redirigé sur le compte client créer;
-
-stop
 @enduml
