@@ -1,38 +1,39 @@
-@startuml brouillon
+@startuml Diagramme de séquence de la création d'une commande
 
-actor Operateur_colis
+actor "Opérateur colis"
 
-participant Chesse
+participant "Application interne DigiCheese"
 
-ref over Operateur_colis, Chesse, Client : le client doit etre trouver avant et la commande ne peut être fait que depuis le client
+ref over "Opérateur colis", "Application interne DigiCheese", CompteClient : le client doit etre trouver avant et la commande ne peut être fait que depuis le client
 
-Operateur_colis -> Chesse : CréerCommande()
-activate Chesse
+"Opérateur colis" -> "Application interne DigiCheese" : CréerCommande()
+activate "Application interne DigiCheese"
 
-Chesse -> Commande : IntialiserCommande(idClient)
+"Application interne DigiCheese" -> Commande : IntialiserCommande(idClient)
 activate Commande 
 
 'Commande -> Client : DemandeID()
 'Client --> Commande : RetourneID
 
-'Commande -> Chesse : DemanderDonner()
-'Chesse -> Operateur_colis : RentrerInformationCommande()
+'Commande -> "Application interne DigiCheese" : DemanderDonner()
+'"Application interne DigiCheese" -> "Opérateur colis" : RentrerInformationCommande()
 
-Operateur_colis -> Chesse : ChoixDesProduit(nomObjet, nombreObjet)
-Chesse -> Chesse : RechercherListesDObjet(nomObjet)
-Chesse --> Chesse : Retourne une ListeDObjets
-Chesse -> Chesse : RechercherObjetDisponible(ListeDObjets, nombreObjet)
-Chesse --> Chesse : Liste ou juste id d'objet
-Chesse -> Commande : AjouterObjets(Liste ou id objet)
+"Opérateur colis" -> "Application interne DigiCheese" : ChoixDesProduit(nomObjet, nbObjets)
+"Application interne DigiCheese" -> "Application interne DigiCheese" : RechercherListesDObjet(nomObjet)
+"Application interne DigiCheese" --> "Application interne DigiCheese" : Retourne une ListeDObjets
+"Application interne DigiCheese" -> "Application interne DigiCheese" : RechercherObjetDisponible(ListeDObjets, nbObjets)
+"Application interne DigiCheese" --> "Application interne DigiCheese" : Liste ou juste l'id d'un objet
+"Application interne DigiCheese" -> Commande : AjouterObjets(Liste ou idObjet)
 
-Chesse -> Commande : AjouterPrix(prixobjets * nbObjets)
-Commande --> Chesse : Prix mis à jour
+"Application interne DigiCheese" -> Commande : AjouterPrix(prixObjets * nbObjets)
+Commande --> "Application interne DigiCheese" : Prix mis à jour
 
-Chesse -> Objet : ChangementDeDisponiblite(Rendre indisponible)
+"Application interne DigiCheese" -> Objet : ChangementDeDisponiblite(Rendre indisponible)
 activate Objet
 
-Objet --> Chesse : Le changement de status a été fait
+Objet --> "Application interne DigiCheese" : Le changement de status a été fait
 
-ref over Operateur_colis, Chesse, Commande, Emballage : Choix de l'emballage a ajouter à la commande
+ref over "Opérateur colis", "Application interne DigiCheese", Commande, Emballage : Choix de l'emballage a ajouter à la commande
 
+title Diagramme de séquence de la création d'une commande
 @enduml

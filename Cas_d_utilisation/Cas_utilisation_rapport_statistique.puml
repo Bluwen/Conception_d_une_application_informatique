@@ -1,28 +1,29 @@
-@startuml Rapport statistique
+@startuml Cas d'utilisation de la gestion des rapports statistique
 
-actor Administrateur
-actor Operateur_stock
-actor Operateur_colis
-actor Operateur
+actor "Administrateur"
+actor "Opérateur stock"
+actor "Opérateur colis"
+actor "Opérateur"
 
-package App {
-    usecase Générer_un_rapport_statistique
-    usecase Choisir_des_données
+package "Application interne DigiCheese" {
+    usecase "Générer un rapport statistique"
+    usecase "Choisir les données"
 
-    usecase Imprimer_le_rapport
+    usecase "Imprimer le rapport"
 
 }
 
-Administrateur --|> Operateur_colis
-Administrateur --|> Operateur_stock
-Operateur_colis --|> Operateur
-Operateur_stock --|> Operateur
+"Administrateur" --|> "Opérateur colis"
+"Administrateur" --|> "Opérateur stock"
+"Opérateur colis" --|> "Opérateur"
+"Opérateur stock" --|> "Opérateur"
 
-Operateur -- Générer_un_rapport_statistique
-Générer_un_rapport_statistique --> Choisir_des_données : <<include>>
-Générer_un_rapport_statistique <-- Imprimer_le_rapport : <<extends>>
+"Opérateur" -- "Générer un rapport statistique"
+"Générer un rapport statistique" --> "Choisir les données" : <<include>>
+"Générer un rapport statistique" <-- "Imprimer le rapport" : <<extends>>
 
 note "Les données peuvent être sur les objets, les clients, les positions gégoraphiques des envoies..." as N1
-N1 .. Choisir_des_données
+N1 .. "Choisir les données"
 
+title Diagramme de cas d'utilisation des rapports statistique dans le package Administrateur
 @enduml

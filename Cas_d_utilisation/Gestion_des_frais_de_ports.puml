@@ -1,26 +1,27 @@
 @startuml Gestion ds frais de ports
 
-actor Administrateur
+actor "Administrateur"
 
-package  app {
-    usecase Modifier_les_tarifs_postaux
+package  "Application interne DigiCheese" {
+    usecase "Gérer les tarifs postaux"
 
-    package Cas_utilisation_gestion_administrative_objet {
+    package "Cas d'utilisation de la gestion des objets dans le package administrateur " {
 
     }
 
-    package Cas_utilisation_gestion_administrative_emballage {
+    package "Cas d'utilisation de la gestion des emballages dans le package administrateur " {
 
     }
 }
 
-Administrateur -- Modifier_les_tarifs_postaux
-Administrateur -- Cas_utilisation_gestion_administrative_emballage
-Administrateur -- Cas_utilisation_gestion_administrative_objet
+"Administrateur" -- "Gérer les tarifs postaux"
+"Administrateur" -- "Cas d'utilisation de la gestion des emballages dans le package administrateur "
+"Administrateur" -- "Cas d'utilisation de la gestion des objets dans le package administrateur "
 
 
 note "Il peut influsencer les frais de port à travers la modification des prix et poids des objets et emballages" as N1
-N1 .. Cas_utilisation_gestion_administrative_emballage
-N1 .. Cas_utilisation_gestion_administrative_objet
+N1 .. "Cas d'utilisation de la gestion des emballages dans le package administrateur "
+N1 .. "Cas d'utilisation de la gestion des objets dans le package administrateur "
 
+title Diagramme de cas d'utilisation de la gestion des frais de ports le package Administrateur
 @enduml

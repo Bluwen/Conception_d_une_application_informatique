@@ -1,29 +1,35 @@
-@startuml Ajouter un emballage à une commande
+@startuml Diagramme de séquence de l'ajout d'un emballage à une commande
 
-actor Operateur_colis
+actor "Opérateur colis"
 
-Operateur_colis -> App : GererCommande(idCommande)
-App -> App : ChercherCommande(idCommande)
-App --> App : Commande trouver
-App --> Operateur_colis : Affiche la commande
+"Opérateur colis" -> "Application interne DigiCheese" : GérerCommande(idCommande)
+activate "Application interne DigiCheese"
+"Application interne DigiCheese" -> "Application interne DigiCheese" : ChercherCommande(idCommande)
+"Application interne DigiCheese" --> "Application interne DigiCheese" : Commande trouvé
+"Application interne DigiCheese" --> "Opérateur colis" : Affiché la commande
 
-Operateur_colis -> App : RechercherUnEmballage(nomObjets, nombreObjets)
-App -> App : RechercherTypeEmballageDisponible(nomObjets, nombreObjets)
-App --> App : Liste d'emballage correspondant
+"Opérateur colis" -> "Application interne DigiCheese" : RechercherUnEmballage(nomObjets, nombreObjets)
+"Application interne DigiCheese" -> "Application interne DigiCheese" : RechercherTypeEmballageDisponible(nomObjets, nombreObjets)
+"Application interne DigiCheese" --> "Application interne DigiCheese" : Liste d'emballage correspondant
 
-App --> Operateur_colis : Affichage de la liste des emballages
+"Application interne DigiCheese" --> "Opérateur colis" : Affichage de la liste des emballages
 
-Operateur_colis -> App : ChoixEmballage(idEmballage)
-App -> Emballage : ModificationDuStatus(idEmballage, Indisponible)
-Emballage --> App : Status modifier
+"Opérateur colis" -> "Application interne DigiCheese" : ChoissirEmballage(idEmballage)
+"Application interne DigiCheese" -> Emballage : ModificationDuStatus(idEmballage, Indisponible)
+activate Emballage
+Emballage --> "Application interne DigiCheese" : Status modifier
+deactivate Emballage
 
-App -> Commande : AjouterEmballage(idEmballage)
-Commande --> App : Emballage bien ajouter
+"Application interne DigiCheese" -> Commande : AjouterEmballage(idEmballage)
+activate Commande
+Commande --> "Application interne DigiCheese" : L'emballage à bien été ajouté
 
-App -> Commande : MiseAJourPoids(poidsEmballage)
-Commande --> App : Poids mis à jour
+"Application interne DigiCheese" -> Commande : MiseAJourPoids(poidsEmballage)
+Commande --> "Application interne DigiCheese" : Poids mis à jour
 
-App -> Commande : MiseAJourPrix(prixEmballage)
-Commande --> App : Prix mis à jour
+"Application interne DigiCheese" -> Commande : MiseAJourPrix(prixEmballage)
+Commande --> "Application interne DigiCheese" : Prix mis à jour
+deactivate Commande
 
+title Diagramme de séquence de la gestion d'une commande lors de l'ajout d'emballage
 @enduml

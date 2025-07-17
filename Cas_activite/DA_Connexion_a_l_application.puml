@@ -1,9 +1,14 @@
 @startuml connexion a l'application
 
+|Application interne DigiCheese|
 start
+
 :Affichage écran de connexion;
 
+|Opérateur|
 repeat :L'utilisateur rentre ses identifiants;
+
+|Application interne DigiCheese|
 repeat while (Identifiant correcte) is (Non) not (Oui);
 
 :L'utilisateur est redirigé vers la page d'acceuil de l'application;

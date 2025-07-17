@@ -1,15 +1,15 @@
 @startuml création compte client da
-|Operateur_colis|
+|Opérateur colis|
 start
 
 
 :Rechercher un client;
-|Application|
+|Application interne DigiCheese|
 if (Le client existe) then (Non)
     :L'application renvoie un message\n que le client n'existe pas;
-    |Operateur_colis|
+    |Opérateur colis|
     :L'utilisateur signale qu'il souhaite créer un nouveau compte client;
-    |Application|
+    |Application interne DigiCheese|
     repeat :L'application affiche les champs à compléter pour un nouveau compte client;
     repeat while (Verification que tous les champs ont bien été complétés) is (Non) not (Oui)
 

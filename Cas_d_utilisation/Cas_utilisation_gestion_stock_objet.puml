@@ -1,47 +1,49 @@
-@startuml Cas d'utilisation gestion des stocks objets
+@startuml Cas d'utilisation de la gestion des stocks objets
 
-actor Opérateur_stock
-actor Administrateur
+actor "Opérateur stock"
+actor "Administrateur"
 
-package Application_intranet_Digicheese {
+package "Application interne DigiCheese" {
     
     'usecase Ajouter_un_nouvel_objet
     'usecase Modifier_les_données_d_un_objet
 
-    usecase Gestion_du_stock_objets
+    usecase "Gérer le stock des objets"
     
-    usecase Verifier_le_nombre_d_objet_disponible
-    usecase Signaler_la_rupture_de_stock
-    usecase Commander_des_objets
+    usecase "Consulter les objets disponibles"
+    usecase "Signaler la rupture de stock"
+    usecase "Commander des objets"
 
-    usecase Consulter_l_emplacement_d_type_objets
-    usecase Consulter_l_emplacement_d_un_objet
+    usecase "Consulter l'emplacement d'un type d'objet"
+    usecase "Consulter l'emplacement d'un objet"
 
-    usecase Ajouter_des_lots_d_objet
+    usecase "Ajouter des lots d'objets"
 
 }
 
-Administrateur -|> Opérateur_stock
+"Administrateur" -|> "Opérateur stock"
 
-'Administrateur -- Ajouter_un_nouvel_objet
-'Administrateur -- Modifier_les_données_d_un_objet
+'"Administrateur" -- Ajouter_un_nouvel_objet
+'"Administrateur" -- Modifier_les_données_d_un_objet
 
-Opérateur_stock -- Gestion_du_stock_objets
-Gestion_du_stock_objets <-- Verifier_le_nombre_d_objet_disponible : <<extend>>
-Verifier_le_nombre_d_objet_disponible <-- Signaler_la_rupture_de_stock : <<extend>>
-Verifier_le_nombre_d_objet_disponible <-- Commander_des_objets : <<extends>>
+"Opérateur stock" -- "Gérer le stock des objets"
+"Gérer le stock des objets" <-- "Consulter les objets disponibles" : <<extend>>
+"Consulter les objets disponibles" <-- "Signaler la rupture de stock" : <<extend>>
+"Consulter les objets disponibles" <-- "Commander des objets" : <<extends>>
 
-Gestion_du_stock_objets <-- Consulter_l_emplacement_d_type_objets : <<extends>>
-Consulter_l_emplacement_d_type_objets <-- Consulter_l_emplacement_d_un_objet : <<extends>>
+"Gérer le stock des objets" <-- "Consulter l'emplacement d'un type d'objet" : <<extends>>
+"Consulter l'emplacement d'un type d'objet" <-- "Consulter l'emplacement d'un objet" : <<extends>>
 
-Gestion_du_stock_objets <-- Ajouter_des_lots_d_objet : <<extends>>
+"Gérer le stock des objets" <-- "Ajouter des lots d'objets" : <<extends>>
 
 note "Permet de consulter le status des objets : réserver pour une commande, détruit, disponible..." as N1
-N1 .. Verifier_le_nombre_d_objet_disponible
+N1 .. "Consulter les objets disponibles"
 
 note "permettrai de signaler aux personnes a charge de commender les goodies qu'il faut en faire" as N2
-N2 .. Commander_des_objets
+N2 .. "Commander des objets"
 
 note "Ajoute dans la base de données les nouveaux lots d'objets déjà présents dans la base de données" as N3
-N3 .. Ajouter_des_lots_d_objet
+N3 .. "Ajouter des lots d'objets"
+
+title Diagramme de cas d'utilisation des stock d'objets dans le package Stock
 @enduml

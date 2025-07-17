@@ -1,29 +1,37 @@
-@startuml Calcul des frais de ports
+@startuml Diaagramme de séquence du calcul des frais de ports
 
-actor Operateur_colis
+actor "Opérateur colis"
 
-Operateur_colis -> App : GererCommande(idCommande)
-App -> App : ChercherCommande(idCommande)
-App --> App : Commande trouver
-App --> Operateur_colis : Affiche la commande
+"Opérateur colis" -> "Application interne DigiCheese" : GererCommande(idCommande)
+activate "Application interne DigiCheese"
+"Application interne DigiCheese" -> "Application interne DigiCheese" : ChercherCommande(idCommande)
+"Application interne DigiCheese" --> "Application interne DigiCheese" : Commande trouvé
+"Application interne DigiCheese" --> "Opérateur colis" : Affiche la commande
 
-Operateur_colis -> App : AfficherFraisDePorts(idCommande)
+"Opérateur colis" -> "Application interne DigiCheese" : AfficherFraisDePorts(idCommande)
 
-App -> Commande : AfficherPoids()
-Commande --> App : Retourne le poids
+"Application interne DigiCheese" -> Commande : AfficherPoids()
+activate Commande
+Commande --> "Application interne DigiCheese" : Retourne le poids
+deactivate Commande
 
-App -> App : RechercherTimbres(poidsCommande)
-App --> App : Retourne timbre disponible correspondant
+"Application interne DigiCheese" -> "Application interne DigiCheese" : RechercherTimbres(poidsCommande)
+"Application interne DigiCheese" --> "Application interne DigiCheese" : Retourne timbre disponible correspondant
 
-App -> TarifsPostaux : AfficherPrix(idTimbre)
-TarifsPostaux --> App : Retourne le prix
+"Application interne DigiCheese" -> TarifsPostaux : AfficherPrix(idTimbre)
+activate TarifsPostaux
+TarifsPostaux --> "Application interne DigiCheese" : Retourne le prix
+deactivate TarifsPostaux
 
-App -> Commande : AfficherPrix(idCommande)
-Commande --> App : Retourne le prix
+"Application interne DigiCheese" -> Commande : AfficherPrix(idCommande)
+activate Commande
+Commande --> "Application interne DigiCheese" : Retourne le prix
+deactivate Commande
 
-App -> App : CalculFraisDePorts(prixCommande, prixTimbre)
-App --> App : retourne le résultat du calcul
+"Application interne DigiCheese" -> "Application interne DigiCheese" : CalculFraisDePorts(prixCommande, prixTimbre)
+"Application interne DigiCheese" --> "Application interne DigiCheese" : Retourne le résultat du calcul
 
-App --> Operateur_colis : Affiche les frais de ports et le timbre correspondant
+"Application interne DigiCheese" --> "Opérateur colis" : Affiche les frais de ports et le timbre correspondant
 
+title Diagramme de séquence de la gestion d'une commande lors du calcul des fraits de ports
 @enduml

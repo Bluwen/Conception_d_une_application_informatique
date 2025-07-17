@@ -1,11 +1,17 @@
-@startuml Connexion à l'APPLICATION
+@startuml Diagramme de séquence d'une connexion à l'application interne
 
-actor Operateur_colis
+actor "Opérateur"
 
-Operateur_colis -> App : Connexion(identifiant, motdepasse)
-App -> App : RechercherCompteUtilisateur(identifiant, motdepasse)
-App --> App : Utilisateur valide
-App --> Operateur_colis : Connexion autorisé
+"Opérateur" -> "Application interne DigiCheese" : Connexion(identifiant, motdepasse)
+activate "Application interne DigiCheese"
+"Application interne DigiCheese" -> "Application interne DigiCheese" : RechercherCompteUtilisateur(identifiant, motdepasse)
 
-
+alt Identification valide
+    "Application interne DigiCheese" --> "Application interne DigiCheese" : Utilisateur valide
+    "Application interne DigiCheese" --> "Opérateur" : Connexion autorisé et l'utilisateur est redirigé vers la page d'acceuil
+else Identification refuser
+    "Application interne DigiCheese" --> "Application interne DigiCheese" : Utilisateur non trouvé
+    "Application interne DigiCheese" --> "Opérateur" : Connexion refusé
+end
+title Diagramme de séquence de la connexion d'un Opérateur sur l'application interne DigiCheese
 @enduml

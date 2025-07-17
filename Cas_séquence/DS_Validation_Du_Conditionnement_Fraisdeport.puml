@@ -1,39 +1,50 @@
 @startuml validation frais de port/conditionnement
 
-actor Operateur_colis
+actor "Opérateur colis"
 
-Operateur_colis -> App : GererCommande(idCommande)
-App -> App : ChercherCommande(idCommande)
-App --> App : Commande trouver
-App --> Operateur_colis : Affiche la commande
+"Opérateur colis" -> "Application interne DigiCheese" : GererCommande(idCommande)
+activate "Application interne DigiCheese"
 
-Operateur_colis -> App : ValiderFraisDePorts(idCommande)
+"Application interne DigiCheese" -> "Application interne DigiCheese" : ChercherCommande(idCommande)
+"Application interne DigiCheese" --> "Application interne DigiCheese" : Commande trouver
+"Application interne DigiCheese" --> "Opérateur colis" : Affiche la commande
 
-App -> Commande : AfficherPoids()
-Commande --> App : Retourne poids
+"Opérateur colis" -> "Application interne DigiCheese" : ValiderFraisDePorts(idCommande)
 
-App --> Operateur_colis : Afficher poids commande
-App -> Operateur_colis : ValiderPoidsCommande()
-Operateur_colis --> App : Valide le poids de la commande
+"Application interne DigiCheese" -> Commande : AfficherPoids()
+activate Commande
+Commande --> "Application interne DigiCheese" : Retourne le poids
+deactivate Commande
 
-App -> Commande : AfficherPrix()
-Commande --> App : Retourne prix
+"Application interne DigiCheese" --> "Opérateur colis" : Afficher poids commande
+"Application interne DigiCheese" -> "Opérateur colis" : ValiderPoidsCommande()
+"Opérateur colis" --> "Application interne DigiCheese" : Valide le poids de la commande
 
-App -> Commande : RechercherClient()
-Commande --> App : Retourne l'id du client
+"Application interne DigiCheese" -> Commande : AfficherPrix()
+activate Commande
+Commande --> "Application interne DigiCheese" : Retourne le prix
 
-App -> CompteClient : AfficherSolde()
-CompteClient --> App : Retourne le solde du client
+"Application interne DigiCheese" -> Commande : RechercherClient()
+Commande --> "Application interne DigiCheese" : Retourne l'id du client
+deactivate Commande
 
-App -> App : ComparaisonPrix(SoldeClient, PrixCommande)
-App --> App : Les prix correspondent
+"Application interne DigiCheese" -> CompteClient : AfficherSolde()
+activate CompteClient
+CompteClient --> "Application interne DigiCheese" : Retourne le solde du client
+deactivate CompteClient
 
-App --> Operateur_colis : Le solde du client et les frais de la commande correspondent
+"Application interne DigiCheese" -> "Application interne DigiCheese" : ComparaisonPrix(SoldeClient, PrixCommande)
+"Application interne DigiCheese" --> "Application interne DigiCheese" : Les prix correspondent
+"Application interne DigiCheese" --> "Opérateur colis" : Le solde du client et les frais de la commande correspondent
 
-App -> Operateur_colis : ValiderCondtionnement()
-Operateur_colis --> App : Valide le condtionnement
+"Application interne DigiCheese" -> "Opérateur colis" : ValiderCondtionnement()
+"Opérateur colis" --> "Application interne DigiCheese" : Valide le condtionnement
 
-App -> Commande : ChangementDEtat()
-Commande --> App : Etat mis à jour
+"Application interne DigiCheese" -> Commande : ChangementDEtat()
+activate Commande
+Commande --> "Application interne DigiCheese" : Etat mis à jour
+deactivate Commande
 
+
+title Diagramme de séquence de la validation des frais de ports
 @enduml
