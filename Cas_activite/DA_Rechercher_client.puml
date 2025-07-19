@@ -1,0 +1,17 @@
+@startuml création compte client da
+|Opérateur colis|
+start
+
+
+:Rechercher un client;
+|Application interne DigiCheese|
+if (Le client existe) then (Non)
+    :L'application renvoie un message\n que le client n'existe pas;
+    stop
+
+else (oui)
+    :L'application affiche le compte client existant;
+    stop
+
+title Diagramme d'activité sur la recherche d'un compte client
+@enduml

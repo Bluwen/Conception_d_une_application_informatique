@@ -1,0 +1,15 @@
+@startuml Gérer une commande
+|Opérateur colis|
+start
+:GererCommande(idCommande);
+
+|Application interne DigiCheese|
+if(ChercherCommande(idCommande)) then (Trouvée)
+    :Affiche la commande;
+    stop
+else (Non trouvée)
+    :Un message d'erreur est affichée;
+    :L'opérateur est invité à ressayer la recherche;
+stop
+title Diagramme d'activité sur la recherche d'une commandes
+@enduml

@@ -1,0 +1,15 @@
+@startuml Diagramme de séquence de la géstion d'un compte client
+actor "Opérateur colis"
+
+"Opérateur colis" -> "Application interne DigiCheese" : GererClient(nom,prenom)
+activate "Application interne DigiCheese"
+"Application interne DigiCheese" -> "Application interne DigiCheese" : ChercherCompteClient(nom,prenom)
+alt Client trouvé
+    "Application interne DigiCheese" --> "Application interne DigiCheese" : Compte client trouvé
+    "Application interne DigiCheese" --> "Opérateur colis" : Redirection vers la page du client
+else Client non trouvé
+    "Application interne DigiCheese" --> "Application interne DigiCheese" : Compte client non trouvé
+    "Application interne DigiCheese" --> "Opérateur colis" : Renvoie le message : Client non trouvé
+end
+title Diagramme de séquence de la gestion d'un compte client
+@enduml

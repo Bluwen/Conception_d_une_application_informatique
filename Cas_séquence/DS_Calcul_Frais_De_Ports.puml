@@ -1,12 +1,16 @@
-@startuml Diaagramme de séquence du calcul des frais de ports
+@startuml Diagramme de séquence du calcul des frais de ports
 
 actor "Opérateur colis"
 
-"Opérateur colis" -> "Application interne DigiCheese" : GererCommande(idCommande)
+'"Opérateur colis" -> "Application interne DigiCheese" : GererCommande(idCommande)
+'activate "Application interne DigiCheese"
+'"Application interne DigiCheese" -> "Application interne DigiCheese" : ChercherCommande(idCommande)
+'"Application interne DigiCheese" --> "Application interne DigiCheese" : Commande trouvé
+'"Application interne DigiCheese" --> "Opérateur colis" : Affiche la commande
+ref over "Opérateur colis", "Application interne DigiCheese": Gestion d'une commande
 activate "Application interne DigiCheese"
-"Application interne DigiCheese" -> "Application interne DigiCheese" : ChercherCommande(idCommande)
-"Application interne DigiCheese" --> "Application interne DigiCheese" : Commande trouvé
-"Application interne DigiCheese" --> "Opérateur colis" : Affiche la commande
+
+
 
 "Opérateur colis" -> "Application interne DigiCheese" : AfficherFraisDePorts(idCommande)
 

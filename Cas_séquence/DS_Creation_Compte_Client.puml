@@ -2,11 +2,14 @@
 
 actor "Opérateur colis"
 
-"Opérateur colis" -> "Application interne DigiCheese" : RechercherUnClient(nom,prenom)
+'"Opérateur colis" -> "Application interne DigiCheese" : RechercherUnClient(nom,prenom)
+'activate "Application interne DigiCheese"
+'"Application interne DigiCheese" -> "Application interne DigiCheese" : ChercherCompteClient(nom,prenom)
+'"Application interne DigiCheese" --> "Application interne DigiCheese" : Compte client non trouver
+'"Application interne DigiCheese" --> "Opérateur colis" : Client non trouver
+
+ref over "Opérateur colis", "Application interne DigiCheese" : GestionCompteClient
 activate "Application interne DigiCheese"
-"Application interne DigiCheese" -> "Application interne DigiCheese" : ChercherCompteClient(nom,prenom)
-"Application interne DigiCheese" --> "Application interne DigiCheese" : Compte client non trouver
-"Application interne DigiCheese" --> "Opérateur colis" : Client non trouver
 
 "Opérateur colis" -> "Application interne DigiCheese" : CreerUnCompteClient(nom, prenom, ...)
 "Application interne DigiCheese" ->  CompteClient : IntialiserUnNouveauxCompte(nom, prenom, ...)

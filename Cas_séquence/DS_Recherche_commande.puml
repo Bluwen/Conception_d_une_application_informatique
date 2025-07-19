@@ -1,0 +1,18 @@
+@startuml Diagramme de séquence sur la recherche de commande
+
+actor "Opérateur colis"
+
+"Opérateur colis" -> "Application interne DigiCheese" : GererCommande(idCommande)
+activate "Application interne DigiCheese"
+"Application interne DigiCheese" -> "Application interne DigiCheese" : ChercherCommande(idCommande)
+
+alt Commande trouvée
+    "Application interne DigiCheese" --> "Application interne DigiCheese" : Commande trouvée
+    "Application interne DigiCheese" --> "Opérateur colis" : Affiche la commande
+else Commande non trouvée
+    "Application interne DigiCheese" --> "Application interne DigiCheese" : Commande non trouvée
+    "Application interne DigiCheese" --> "Opérateur colis" : Un message est affichée : commande non trouvée
+end
+
+title Diagramme de séquence sur la recherche d'une commande
+@enduml

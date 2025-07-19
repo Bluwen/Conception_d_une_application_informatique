@@ -2,11 +2,13 @@
 
 actor "Opérateur colis"
 
-"Opérateur colis" -> "Application interne DigiCheese" : GérerCommande(idCommande)
+'"Opérateur colis" -> "Application interne DigiCheese" : GérerCommande(idCommande)
+'activate "Application interne DigiCheese"
+'"Application interne DigiCheese" -> "Application interne DigiCheese" : ChercherCommande(idCommande)
+'"Application interne DigiCheese" --> "Application interne DigiCheese" : Commande trouvé
+'"Application interne DigiCheese" --> "Opérateur colis" : Affiché la commande
+ref over "Opérateur colis", "Application interne DigiCheese": Gestion d'une commande
 activate "Application interne DigiCheese"
-"Application interne DigiCheese" -> "Application interne DigiCheese" : ChercherCommande(idCommande)
-"Application interne DigiCheese" --> "Application interne DigiCheese" : Commande trouvé
-"Application interne DigiCheese" --> "Opérateur colis" : Affiché la commande
 
 "Opérateur colis" -> "Application interne DigiCheese" : RechercherUnEmballage(nomObjets, nombreObjets)
 "Application interne DigiCheese" -> "Application interne DigiCheese" : RechercherTypeEmballageDisponible(nomObjets, nombreObjets)
