@@ -1,0 +1,38 @@
+@startuml création compte client da
+|Opérateur colis|
+start
+
+
+:Créer une commande;
+|Application interne DigiCheese|
+:Affiche le formulaire de création de commande;
+
+|Opérateur colis|
+:Complete le formulaire;
+
+|Application interne DigiCheese|
+if (Les objets selectionnées sont disponibles en stock) then (oui)
+    :Création de Commande]
+    :Ajouter les objets à la commande;
+    :Commande]
+    :Calculer le prix des objets;
+    :Ajouter le prix à la commande;
+    :L'état de la commande est mis a jour;
+    :Commande]
+    :L'utilisateur est redirigé vers la page de la commande en cours;
+    stop
+else (non)
+    :Un message est envoyé à l'opérateur colis lui proposant de continuer la commande ou de l'annuler;
+    |Opérateur colis|
+    if (Continuer la commande ou l'annuler ?) then (oui)
+    |Application interne DigiCheese|
+        :Création de la commande avec le status en attent d'objet;
+        :Commande]
+        stop
+    else (non)
+    |Application interne DigiCheese|
+        :Un message est envoyé à l'utilisateur que la procédure est bien annulée;
+        stop
+
+title Diagramme d'activité sur la création d'une commande
+@enduml

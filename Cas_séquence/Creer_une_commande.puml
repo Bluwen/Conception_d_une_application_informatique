@@ -3,11 +3,11 @@
 actor "Opérateur colis"
 
 participant "Application interne DigiCheese"
-
-ref over "Opérateur colis", "Application interne DigiCheese", CompteClient : le client doit etre trouver avant et la commande ne peut être fait que depuis le client
+activate "Application interne DigiCheese"
+ref over "Opérateur colis", "Application interne DigiCheese", CompteClient : GestionCompteClient
 
 "Opérateur colis" -> "Application interne DigiCheese" : CréerCommande()
-activate "Application interne DigiCheese"
+
 
 "Application interne DigiCheese" -> Commande : IntialiserCommande(idClient)
 activate Commande 
@@ -27,13 +27,15 @@ activate Commande
 
 "Application interne DigiCheese" -> Commande : AjouterPrix(prixObjets * nbObjets)
 Commande --> "Application interne DigiCheese" : Prix mis à jour
+deactivate Commande
 
 "Application interne DigiCheese" -> Objet : ChangementDeDisponiblite(Rendre indisponible)
 activate Objet
 
 Objet --> "Application interne DigiCheese" : Le changement de status a été fait
+deactivate Objet
 
-ref over "Opérateur colis", "Application interne DigiCheese", Commande, Emballage : Choix de l'emballage a ajouter à la commande
+ref over "Opérateur colis", "Application interne DigiCheese", Commande, Emballage : GestionEmballage
 
 title Diagramme de séquence de la création d'une commande
 @enduml
