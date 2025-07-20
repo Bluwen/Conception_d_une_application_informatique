@@ -11,6 +11,12 @@ package "Adminisitration"{
         'disponible : boolean
         {field} prix : decimal (5,2)
         {field} poids : decimal (5,2)
+
+        ChangementDeStatus()
+        ModifierPoids()
+        ModifierPrix()
+        ModifierNom()
+        ModifierDescription()
     }
 
     class ModeleEmballage {
@@ -18,12 +24,22 @@ package "Adminisitration"{
         nom : string
         {field} prix : decimal (5,2)
         {field} poids : decimal (5,2)
+
+        ChangementDeStatus()
+        ModifierPoids()
+        ModifierPrix()
+        ModifierNom()
     }
 
     class TarifsPostaux {
         idTarifsPostaux : int
         poidsMaximum : int
         {field} prix : decimal (5,2)
+
+        ChangementDeStatus()
+        ModifierPoids()
+        ModifierPrix()
+        ModifierNom()
     }
 
     enum Status <<enumeration>>{
@@ -35,6 +51,9 @@ package "Adminisitration"{
     class Quantite {
         minObjets : int
         maxObjets : int
+        
+        ModifierMinObjet(nb : int)
+        ModifierMaxObjet(nb : int)
     }
 
     class CompteClient {
@@ -50,6 +69,14 @@ package "Adminisitration"{
         newsletters : boolean
         {field} solde : decimal(5,2)
         dateCreation : date
+
+        ModifierAdressePostal()
+        ModifierAdresseMail()
+        ModifierNewsletters()
+        ModifierTelephone()
+        CommandeEnCours()
+        HistoriqueCommande()
+
     }
 
     class Enseigne {
@@ -57,6 +84,9 @@ package "Adminisitration"{
         nom : string
         'ville : string
         'codePostal : int
+
+        ModifierAdressePostal()
+        ModifierNom()
     }
 
 
@@ -81,14 +111,17 @@ package "Stock" {
 
     class Objet {
         idObjet : int
+        ChangementDeCondition()
     }
 
     class Emballage {
         idEmballage : int
+        ChangementDeCondition()
     }
 
     class Timbre {
         idTimbre : int
+        ChangementDeCondition()
     }
 
     enum Condition <<enumeration>> {
@@ -118,13 +151,13 @@ package "Colis" {
         dateCreation : date
 
 
-        'ModifierPrix()
-        'ModifierPoids()
-        'ModifierEtat()
-        'AjouterObjets()
-        'AjouterEmballages()
-        'AjouterTimbres()
-        'AjouterNuméroSuivie()
+        ModifierPrix()
+        ModifierPoids()
+        ModifierEtat()
+        AjouterObjets()
+        AjouterEmballages()
+        AjouterTimbres()
+        AjouterNuméroSuivie()
 
     }
 
@@ -153,28 +186,59 @@ package "Utilisateur" {
     }
 
     class OperateurColis {
-        InitialiserCompteClient()
-        ModifierCompteClient()
-        InitialiserComande()
-        ModifierCommande()
+        CreerCompteClient()
+        GererCompteClient()
+        CreerComande()
+        GererCommande()
+        EnvoyerNewletters(idClient : int, newsletters : boolean)
+        EnvoyerMail(idClient : int, adresseMailClient : string)
+        ValiderFraisDePort()
     }
 
     class OperateurStock {
+        GererStockObjet()
+        AjouterDesObjets()
+        ConsulterEmplacementModeleObjet()
+        ConsulterEmplacementDObjet()
+        ConsulterDisponibiliteObjet()
+        CommanderObjet()
+        GererStockEmballage()
+        AjouterDesEmballage()
+        ConsulterEmplacementModeleEmballage()
+        ConsulterEmplacementDEmballage()
+        ConsulterDisponibiliteEmballage()
+        CommanderEmballage()
+        GererStockTimbre()
+        AjouterDesTimbres()
+        ConsulterEmplacementTypeTimbre()
+        ConsulterEmplacementDeTimbre()
+        ConsulterDisponibiliteTimbre()
+        CommanderDesTimbres()
 
     }
 
     class Administrateur {
-
+        GererModeleObjet(idModeleObjet: int)
+        CreerModeleObjet()
+        GererModeleEmballage(idModeleEmballage: int)
+        CreerModeleEmballage()
+        GererTarifsPostaux(idTarifsPostaux : int)
+        CreerTarifsPostaux()
+        SupprimerCompteClient(idClient : int)
     }
 
 }
 
 
 class "Application interne DigiCheese"{
-    'ChercherCompteUtilisateur(nom : str, motDePasse : str)
-    'ChercherCommande(idCommande : int)
-    'ChercherObjetDisponible(nomObjet : str)
-    'ChercherEmballagePourCommande()
+    ChercherCompteUtilisateur(nom : string, motDePasse : string)
+    ChercherCommande(idCommande : int)
+    ChercherObjetDisponible(nomObjet : string)
+    ChercherEmballagePourCommande(nomObjet : string, nombreObjet : int)
+    ChercherTarifsPostaux(poidsCommande : decimal(5,2))
+    GenererRapportStatistique(*args)
+    Impression(*args)
+
     
 
 }
