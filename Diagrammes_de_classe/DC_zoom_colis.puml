@@ -118,13 +118,13 @@ package "Colis" {
         dateCreation : date
 
 
-        'ModifierPrix()
-        'ModifierPoids()
-        'ModifierEtat()
-        'AjouterObjets()
-        'AjouterEmballages()
-        'AjouterTimbres()
-        'AjouterNuméroSuivie()
+        ModifierPrix()
+        ModifierPoids()
+        ModifierEtat()
+        AjouterObjets()
+        AjouterEmballages()
+        AjouterTimbres()
+        AjouterNuméroSuivie()
 
     }
 

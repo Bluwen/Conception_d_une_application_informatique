@@ -11,6 +11,11 @@ package "Adminisitration"{
         'disponible : boolean
         {field} prix : decimal (5,2)
         {field} poids : decimal (5,2)
+        ChangementDeStatus()
+        ModifierPoids()
+        ModifierPrix()
+        ModifierNom()
+        ModifierDescription()
     }
 
     class ModeleEmballage {
@@ -18,12 +23,22 @@ package "Adminisitration"{
         nom : string
         {field} prix : decimal (5,2)
         {field} poids : decimal (5,2)
+        
+        ChangementDeStatus()
+        ModifierPoids()
+        ModifierPrix()
+        ModifierNom()
     }
 
     class TarifsPostaux {
         idTarifsPostaux : int
         poidsMaximum : int
         {field} prix : decimal (5,2)
+
+        ChangementDeStatus()
+        ModifierPoids()
+        ModifierPrix()
+        ModifierNom()
     }
 
     enum Status <<enumeration>>{
@@ -35,6 +50,9 @@ package "Adminisitration"{
     class Quantite {
         minObjets : int
         maxObjets : int
+
+        ModifierMinObjet(nb : int)
+        ModifierMaxObjet(nb : int)
     }
 
     class CompteClient {
@@ -50,6 +68,13 @@ package "Adminisitration"{
         newsletters : boolean
         {field} solde : decimal(5,2)
         dateCreation : date
+
+        ModifierAdressePostal()
+        ModifierAdresseMail()
+        ModifierNewsletters()
+        ModifierTelephone()
+        CommandeEnCours()
+        HistoriqueCommande()
     }
 
     class Enseigne {
@@ -57,6 +82,9 @@ package "Adminisitration"{
         nom : string
         'ville : string
         'codePostal : int
+
+        ModifierAdressePostal()
+        ModifierNom()
     }
 
 

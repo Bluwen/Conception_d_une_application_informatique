@@ -81,14 +81,17 @@ package "Stock" {
 
     class Objet {
         idObjet : int
+        ChangementDeCondition()
     }
 
     class Emballage {
         idEmballage : int
+        ChangementDeCondition()
     }
 
     class Timbre {
         idTimbre : int
+        ChangementDeCondition()
     }
 
     enum Condition <<enumeration>> {
