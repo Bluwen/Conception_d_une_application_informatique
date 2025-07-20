@@ -1,0 +1,216 @@
+@startuml Classe zoom colis
+skinparam linetype ortho
+
+
+package "Adminisitration"{
+
+    'class ModeleObjet {
+        'idModeleObjet : int
+        'nom : string
+        'description : string
+        'disponible : boolean
+        '{field} prix : decimal (5,2)
+        '{field} poids : decimal (5,2)
+    '}
+
+    'class ModeleEmballage {
+        'idModeleEmballage : int
+        'nom : string
+        '{field} prix : decimal (5,2)
+        '{field} poids : decimal (5,2)
+    '}
+
+    'class TarifsPostaux {
+        'idTarifsPostaux : int
+        'poidsMaximum : int
+        '{field} prix : decimal (5,2)
+    '}
+
+    'enum Status <<enumeration>>{
+        'DISPONIBLE
+        'RUPTURE DE STOCK
+        'DISCONTINUE
+    '}
+
+    'class Quantite {
+        'minObjets : int
+        'maxObjets : int
+    '}
+
+    class CompteClient {
+        'idClient : int
+        'nom : string
+        'prenom : string
+        'genre : string
+        'adressePostal : string
+        'codePostal : int
+        'ville : string
+        'telephone : string
+        'adresseMail : string
+        'newsletters : boolean
+        '{field} solde : decimal(5,2)
+        'dateCreation : date
+    }
+
+   ' class Enseigne {
+        'idEnseigne : int
+        'nom : string
+        'ville : string
+        'codePostal : int
+    '}
+
+
+
+    class AdressePostal {
+        'idAdressePostal : int
+        'adressePostal : string
+        'ville : string
+        'codePostal : int
+    }
+
+}
+'ModeleObjet "0..*"-- "1" Status : status
+'ModeleEmballage "0..*" -- "1" Status : status
+'TarifsPostaux "0..*" -- "1" Status : status
+
+'ModeleObjet "1..*" -- "1..*" ModeleEmballage : contenir
+'(ModeleObjet, ModeleEmballage) .. Quantite
+
+
+package "Stock" {
+
+    class Objet {
+        'idObjet : int
+    }
+
+    class Emballage {
+        'idEmballage : int
+    }
+
+    class Timbre {
+        'idTimbre : int
+    }
+
+    enum Condition <<enumeration>> {
+        'DISPONIBLE
+        'INDISPONIBLE
+    }
+
+}
+
+Objet "0..*" -- "1" Condition : condition
+Emballage "0..*" -- "1" Condition : condition
+Timbre "0..*" -- "1" Condition : condition
+
+
+'Objet "0..*" -- "1" ModeleObjet : avoir
+'Emballage "0..*" -- "1" ModeleEmballage : avoir
+'TarifsPostaux "0..*" -- "1" Timbre : avoir
+
+package "Colis" {
+
+    class Commande {
+        idCommande : int
+        quantiteDObjets : int
+        numeroDeSuivie : int
+        {field} prix : decimal (5,2)
+        {field} poids : decimal (5,2)
+        dateCreation : date
+
+
+        'ModifierPrix()
+        'ModifierPoids()
+        'ModifierEtat()
+        'AjouterObjets()
+        'AjouterEmballages()
+        'AjouterTimbres()
+        'AjouterNuméroSuivie()
+
+    }
+
+    enum Etat <<enumeration>>{
+        INITIALISER
+        EN ATTENTE DE PREPARATION
+        PREPARATION REALISE
+        EN ATTENTE DE VALIDATION DES FRAIS DE PORTS
+        FRAIS DE PORTS VALIDES
+        EXPEDIER
+        TERMINER
+        ANNULEE
+        ERREUR
+    }
+
+}
+
+Commande "0..1" -- "1"Etat :état
+
+package "Utilisateur" {
+
+    class Operateur {
+        'idOperateur : int
+        'nom : string
+        'motDePasse : string
+    }
+
+    class OperateurColis {
+        'InitialiserCompteClient()
+        'ModifierCompteClient()
+        'InitialiserComande()
+        'ModifierCommande()
+    }
+
+    class OperateurStock {
+
+    }
+
+    class Administrateur {
+
+    }
+
+}
+
+
+class "Application interne DigiCheese"{
+    'ChercherCompteUtilisateur(nom : str, motDePasse : str)
+    'ChercherCommande(idCommande : int)
+    'ChercherObjetDisponible(nomObjet : str)
+    'ChercherEmballagePourCommande()
+    
+
+}
+
+
+CompteClient "1" -- "1..*" AdressePostal : possède
+Commande "1..*" -- "1" AdressePostal : possède
+'Enseigne "1..*" -- "1"AdressePostal : possède
+
+Commande "0..1" -- "1..*" Objet : contient
+Commande "0..1" -- "1..*" Emballage : contient
+Commande "0..1" -- "1..*" Timbre : possède
+
+
+CompteClient "1" -- "1..*" Commande : possède
+
+
+
+'Administrateur "1..*" -- "1" Adminisitration : Gérer
+
+OperateurColis "1..*" -- "1" Colis : Gérer
+
+'OperateurStock "1..*" -- "1" Stock : Gérer
+
+Operateur <|-- OperateurColis
+Operateur <|-- OperateurStock
+OperateurStock <|-- Administrateur
+OperateurColis <|-- Administrateur
+
+
+'OperateurColis "1..*" -- "0..*" CompteClient : Gérer
+'OperateurColis "1..*" -- "0..*" Enseigne : Gérer
+
+"Application interne DigiCheese" "1" -- "*" Utilisateur
+"Application interne DigiCheese" "1" -- "*" Adminisitration
+"Application interne DigiCheese" "1" -- "*" Stock
+"Application interne DigiCheese" "1" -- "*" Colis
+
+@enduml

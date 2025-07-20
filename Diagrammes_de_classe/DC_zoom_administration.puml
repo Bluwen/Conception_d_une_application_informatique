@@ -1,4 +1,4 @@
-@startuml Classe model
+@startuml Classe zoom Adminisitration
 skinparam linetype ortho
 
 
@@ -80,27 +80,27 @@ ModeleObjet "1..*" -- "1..*" ModeleEmballage : contenir
 package "Stock" {
 
     class Objet {
-        idObjet : int
+        'idObjet : int
     }
 
     class Emballage {
-        idEmballage : int
+        'idEmballage : int
     }
 
     class Timbre {
-        idTimbre : int
+        'idTimbre : int
     }
 
-    enum Condition <<enumeration>> {
-        DISPONIBLE
-        INDISPONIBLE
-    }
+   ' enum Condition <<enumeration>> {
+        'DISPONIBLE
+        'INDISPONIBLE
+    '}
 
 }
 
-Objet "0..*" -- "1" Condition : condition
-Emballage "0..*" -- "1" Condition : condition
-Timbre "0..*" -- "1" Condition : condition
+'Objet "0..*" -- "1" Condition : condition
+'Emballage "0..*" -- "1" Condition : condition
+'Timbre "0..*" -- "1" Condition : condition
 
 
 Objet "0..*" -- "1" ModeleObjet : avoir
@@ -110,12 +110,12 @@ TarifsPostaux "0..*" -- "1" Timbre : avoir
 package "Colis" {
 
     class Commande {
-        idCommande : int
-        quantiteDObjets : int
-        numeroDeSuivie : int
-        {field} prix : decimal (5,2)
-        {field} poids : decimal (5,2)
-        dateCreation : date
+        'idCommande : int
+        'quantiteDObjets : int
+        'numeroDeSuivie : int
+        '{field} prix : decimal (5,2)
+        '{field} poids : decimal (5,2)
+        'dateCreation : date
 
 
         'ModifierPrix()
@@ -128,35 +128,35 @@ package "Colis" {
 
     }
 
-    enum Etat <<enumeration>>{
-        INITIALISER
-        EN ATTENTE DE PREPARATION
-        PREPARATION REALISE
-        EN ATTENTE DE VALIDATION DES FRAIS DE PORTS
-        FRAIS DE PORTS VALIDES
-        EXPEDIER
-        TERMINER
-        ANNULEE
-        ERREUR
-    }
+    'enum Etat <<enumeration>>{
+        'INITIALISER
+        'EN ATTENTE DE PREPARATION
+        'PREPARATION REALISE
+        'EN ATTENTE DE VALIDATION DES FRAIS DE PORTS
+        'FRAIS DE PORTS VALIDES
+        'EXPEDIER
+        'TERMINER
+        'ANNULEE
+        'ERREUR
+    '}
 
 }
 
-Commande "0..1" -- "1"Etat :état
+'Commande "0..1" -- "1"Etat :état
 
 package "Utilisateur" {
 
     class Operateur {
-        idOperateur : int
-        nom : string
-        motDePasse : string
+        'idOperateur : int
+        'nom : string
+        'motDePasse : string
     }
 
     class OperateurColis {
-        InitialiserCompteClient()
-        ModifierCompteClient()
-        InitialiserComande()
-        ModifierCommande()
+        'InitialiserCompteClient()
+        'ModifierCompteClient()
+        'InitialiserComande()
+        'ModifierCommande()
     }
 
     class OperateurStock {
@@ -184,9 +184,9 @@ CompteClient "1" -- "1..*" AdressePostal : possède
 Commande "1..*" -- "1" AdressePostal : possède
 Enseigne "1..*" -- "1"AdressePostal : possède
 
-Commande "0..1" -- "1..*" Objet : contient
-Commande "0..1" -- "1..*" Emballage : contient
-Commande "0..1" -- "1..*" Timbre : possède
+'Commande "0..1" -- "1..*" Objet : contient
+'Commande "0..1" -- "1..*" Emballage : contient
+'Commande "0..1" -- "1..*" Timbre : possède
 
 
 CompteClient "1" -- "1..*" Commande : possède
@@ -195,9 +195,9 @@ CompteClient "1" -- "1..*" Commande : possède
 
 Administrateur "1..*" -- "1" Adminisitration : Gérer
 
-OperateurColis "1..*" -- "1" Colis : Gérer
+'OperateurColis "1..*" -- "1" Colis : Gérer
 
-OperateurStock "1..*" -- "1" Stock : Gérer
+'OperateurStock "1..*" -- "1" Stock : Gérer
 
 Operateur <|-- OperateurColis
 Operateur <|-- OperateurStock
@@ -212,50 +212,5 @@ OperateurColis "1..*" -- "0..*" Enseigne : Gérer
 "Application interne DigiCheese" "1" -- "*" Adminisitration
 "Application interne DigiCheese" "1" -- "*" Stock
 "Application interne DigiCheese" "1" -- "*" Colis
-
-
-'class Conditionnement {}
-
-'diamond dia
-
-
-
-
-
-
-
-
-
-'CompteClient "1"-- "0..*" Commande : possède
-'Commande "1" -- "1..*" Objet : possède
-'Emballage "1" -- "1..*" Objet : contenir
-
-'CompteClient "1" -- "1..*" AdressePostal : possède
-'Commande "1..*" -- "1" AdressePostal : possède
-'Enseigne "1..*" -- "1"AdressePostal : possède
-
-'note "Avoir une classe adresse à part permettra de faire des statistiques\n sur les positions géographique plus simplement" as N1
-
-'N1 .. AdressePostal
-
-'Emballage -- dia
-'Objet -- dia
-'Commande -- dia
-'TarifsPostaux -- dia
-'dia .. Conditionnement
-
-'note "Suggestion pour calculer et montrer les liens pour le conditionnement" as N2
-'N2 .. Conditionnement
-
-'Operateur <|-- OperateurColis
-'Operateur <|-- OperateurStock
-'OperateurStock <|-- Administrateur
-'OperateurColis <|-- Administrateur
-
-'Commande "0..1" -- "1"Etat :état
-
-'TarifsPostaux "1" -- "1..*" Commande : possède
-
-'Emballage"1..*" -- "1..*"Commande : contient
 
 @enduml

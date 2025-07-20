@@ -5,56 +5,56 @@ skinparam linetype ortho
 package "Adminisitration"{
 
     class ModeleObjet {
-        idModeleObjet : int
-        nom : string
-        description : string
+        'idModeleObjet : int
+        'nom : string
+        'description : string
         'disponible : boolean
-        {field} prix : decimal (5,2)
-        {field} poids : decimal (5,2)
+        '{field} prix : decimal (5,2)
+        '{field} poids : decimal (5,2)
     }
 
     class ModeleEmballage {
-        idModeleEmballage : int
-        nom : string
-        {field} prix : decimal (5,2)
-        {field} poids : decimal (5,2)
+        'idModeleEmballage : int
+        'nom : string
+        '{field} prix : decimal (5,2)
+        '{field} poids : decimal (5,2)
     }
 
     class TarifsPostaux {
-        idTarifsPostaux : int
-        poidsMaximum : int
-        {field} prix : decimal (5,2)
+       ' idTarifsPostaux : int
+        'poidsMaximum : int
+        '{field} prix : decimal (5,2)
     }
 
     enum Status <<enumeration>>{
-        DISPONIBLE
-        RUPTURE DE STOCK
-        DISCONTINUE
+        'DISPONIBLE
+        'RUPTURE DE STOCK
+        'DISCONTINUE
     }
 
     class Quantite {
-        minObjets : int
-        maxObjets : int
+       ' minObjets : int
+       ' maxObjets : int
     }
 
     class CompteClient {
-        idClient : int
-        nom : string
-        prenom : string
-        genre : string
+        'idClient : int
+        'nom : string
+       ' prenom : string
+       ' genre : string
         'adressePostal : string
         'codePostal : int
         'ville : string
-        telephone : string
-        adresseMail : string
-        newsletters : boolean
-        {field} solde : decimal(5,2)
-        dateCreation : date
+       'telephone : string
+        'adresseMail : string
+        'newsletters : boolean
+        '{field} solde : decimal(5,2)
+        'dateCreation : date
     }
 
     class Enseigne {
-        idEnseigne : int
-        nom : string
+        'idEnseigne : int
+        'nom : string
         'ville : string
         'codePostal : int
     }
@@ -62,10 +62,10 @@ package "Adminisitration"{
 
 
     class AdressePostal {
-        idAdressePostal : int
-        adressePostal : string
-        ville : string
-        codePostal : int
+        'idAdressePostal : int
+        'adressePostal : string
+        'ville : string
+        'codePostal : int
     }
 
 }
@@ -80,20 +80,20 @@ ModeleObjet "1..*" -- "1..*" ModeleEmballage : contenir
 package "Stock" {
 
     class Objet {
-        idObjet : int
+        'idObjet : int
     }
 
     class Emballage {
-        idEmballage : int
+        'idEmballage : int
     }
 
     class Timbre {
-        idTimbre : int
+        'idTimbre : int
     }
 
     enum Condition <<enumeration>> {
-        DISPONIBLE
-        INDISPONIBLE
+       ' DISPONIBLE
+        'INDISPONIBLE
     }
 
 }
@@ -110,12 +110,12 @@ TarifsPostaux "0..*" -- "1" Timbre : avoir
 package "Colis" {
 
     class Commande {
-        idCommande : int
-        quantiteDObjets : int
-        numeroDeSuivie : int
-        {field} prix : decimal (5,2)
-        {field} poids : decimal (5,2)
-        dateCreation : date
+        'idCommande : int
+        'quantiteDObjets : int
+        'numeroDeSuivie : int
+        '{field} prix : decimal (5,2)
+        '{field} poids : decimal (5,2)
+        'dateCreation : date
 
 
         'ModifierPrix()
@@ -129,15 +129,15 @@ package "Colis" {
     }
 
     enum Etat <<enumeration>>{
-        INITIALISER
-        EN ATTENTE DE PREPARATION
-        PREPARATION REALISE
-        EN ATTENTE DE VALIDATION DES FRAIS DE PORTS
-        FRAIS DE PORTS VALIDES
-        EXPEDIER
-        TERMINER
-        ANNULEE
-        ERREUR
+        'INITIALISER
+        'EN ATTENTE DE PREPARATION
+        'PREPARATION REALISE
+        'EN ATTENTE DE VALIDATION DES FRAIS DE PORTS
+       ' FRAIS DE PORTS VALIDES
+        'EXPEDIER
+        'TERMINER
+        'ANNULEE
+        'ERREUR
     }
 
 }
@@ -147,16 +147,16 @@ Commande "0..1" -- "1"Etat :état
 package "Utilisateur" {
 
     class Operateur {
-        idOperateur : int
-        nom : string
-        motDePasse : string
+        'idOperateur : int
+        'nom : string
+        'motDePasse : string
     }
 
     class OperateurColis {
-        InitialiserCompteClient()
-        ModifierCompteClient()
-        InitialiserComande()
-        ModifierCommande()
+        'InitialiserCompteClient()
+        'ModifierCompteClient()
+        'InitialiserComande()
+        'ModifierCommande()
     }
 
     class OperateurStock {
@@ -212,50 +212,5 @@ OperateurColis "1..*" -- "0..*" Enseigne : Gérer
 "Application interne DigiCheese" "1" -- "*" Adminisitration
 "Application interne DigiCheese" "1" -- "*" Stock
 "Application interne DigiCheese" "1" -- "*" Colis
-
-
-'class Conditionnement {}
-
-'diamond dia
-
-
-
-
-
-
-
-
-
-'CompteClient "1"-- "0..*" Commande : possède
-'Commande "1" -- "1..*" Objet : possède
-'Emballage "1" -- "1..*" Objet : contenir
-
-'CompteClient "1" -- "1..*" AdressePostal : possède
-'Commande "1..*" -- "1" AdressePostal : possède
-'Enseigne "1..*" -- "1"AdressePostal : possède
-
-'note "Avoir une classe adresse à part permettra de faire des statistiques\n sur les positions géographique plus simplement" as N1
-
-'N1 .. AdressePostal
-
-'Emballage -- dia
-'Objet -- dia
-'Commande -- dia
-'TarifsPostaux -- dia
-'dia .. Conditionnement
-
-'note "Suggestion pour calculer et montrer les liens pour le conditionnement" as N2
-'N2 .. Conditionnement
-
-'Operateur <|-- OperateurColis
-'Operateur <|-- OperateurStock
-'OperateurStock <|-- Administrateur
-'OperateurColis <|-- Administrateur
-
-'Commande "0..1" -- "1"Etat :état
-
-'TarifsPostaux "1" -- "1..*" Commande : possède
-
-'Emballage"1..*" -- "1..*"Commande : contient
 
 @enduml
