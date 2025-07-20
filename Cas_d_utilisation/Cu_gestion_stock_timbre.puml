@@ -1,0 +1,79 @@
+@startuml Cas d'utilisation de la gestion des stocks emballages
+
+actor "Opérateur stock"
+actor "Administrateur"
+
+package "Application interne DigiCheese" {
+    
+    'usecase Ajouter_un_nouvel_objet
+    'usecase Modifier_les_données_d_un_objet
+
+    'usecase "Gérer le stock d'emballages"
+    usecase "Gérer le stock de timbre"
+    
+    'usecase "Verifier le nombre d'emballage disponible"
+    'usecase "Signaler la rupture de stock d'emballage"
+    'usecase "Comander des emballages"
+
+    usecase "Vérifier le nombre de timbre disponible"
+    'usecase "Signaler la rupture de stock de timbre"
+    usecase "Commander des timbres"
+
+    'usecase "Consulter l'emplacement d'un type d'emballage"
+    'usecase "Consulter l'emplacement d'un emballage"
+
+    usecase "Consulter l'emplacement d'un type de timbre"
+    usecase "Consulter l'emplacement d'un timbre"
+
+    'usecase "Ajouter des lots d'emballages"
+
+    usecase "Ajouter des timbres"
+
+}
+
+"Administrateur" -|> "Opérateur stock"
+
+'"Administrateur" -- Ajouter_un_nouvel_objet
+'"Administrateur" -- Modifier_les_données_d_un_objet
+
+'"Opérateur stock" -- "Gérer le stock d'emballages"
+'"Gérer le stock d'emballages" <-- "Verifier le nombre d'emballage disponible" : <<extend>>
+'"Verifier le nombre d'emballage disponible" <-- "Signaler la rupture de stock d'emballage" : <<extend>>
+'"Verifier le nombre d'emballage disponible" <-- "Comander des emballages" : <<extends>>
+
+'"Gérer le stock d'emballages" <-- "Consulter l'emplacement d'un type d'emballage" : <<extends>>
+'"Consulter l'emplacement d'un type d'emballage" <-- "Consulter l'emplacement d'un emballage" : <<extends>>
+
+'"Gérer le stock d'emballages" <-- "Ajouter des lots d'emballages" : <<extends>>
+
+'note "Permet de consulter le status des emballages : réserver pour une commande, détruit, disponible..." as N1
+'N1 .. "Verifier le nombre d'emballage disponible"
+
+'note "permettrai de signaler aux personnes a charge de commender les goodies qu'il faut en faire" as N2
+'N2 .. "Comander des emballages"
+
+'note "Ajoute dans la base de données les nouveaux lots d'objets déjà présents dans la base de données" as N3
+'N3 .. "Ajouter des lots d'emballages"
+
+
+"Opérateur stock" -- "Gérer le stock de timbre"
+"Gérer le stock de timbre" <-- "Vérifier le nombre de timbre disponible" : <<extend>>
+'"Vérifier le nombre de timbre disponible" <-- "Signaler la rupture de stock de timbre" : <<extend>>
+"Vérifier le nombre de timbre disponible" <-- "Commander des timbres" : <<extends>>
+
+"Gérer le stock de timbre" <-- "Consulter l'emplacement d'un type de timbre" : <<extends>>
+"Consulter l'emplacement d'un type de timbre" <-- "Consulter l'emplacement d'un timbre" : <<extends>>
+
+"Gérer le stock de timbre" <-- "Ajouter des timbres" : <<extends>>
+
+'note "Permet de consulter le status des emballages : réserver pour une commande, détruit, disponible..." as N4
+'N4 .. "Vérifier le nombre de timbre disponible"
+
+'note "permettrai de signaler aux personnes a charge de commender les goodies qu'il faut en faire" as N5
+'N5 .. "Commander des timbres"
+
+'note "Ajoute dans la base de données les nouveaux lots d'objets déjà présents dans la base de données" as N6
+'N6 .. "Ajouter des lots de timbres"
+
+title Diagramme de cas d'utilisation des stock de timbres dans le package Stock
+@enduml
