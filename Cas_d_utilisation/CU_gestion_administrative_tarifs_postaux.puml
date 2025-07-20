@@ -1,0 +1,21 @@
+@startuml Gestion administrative d'un objet
+
+actor "Administateur" 
+
+package "Application interne DigiCheese" {
+    usecase "Créer un tarif postal"
+    usecase "Gérer un tarif postal"
+
+    usecase "Modifier les caractéristiques du tarif postal"
+}
+
+"Administateur" --  "Créer un tarif postal"
+"Administateur" -- "Gérer un tarif postal"
+
+ "Créer un tarif postal" --> "Gérer un tarif postal": <<include>>
+
+"Gérer un tarif postal" <-- "Modifier les caractéristiques du tarif postal" : <<extend>>
+
+
+title Diagramme de cas d'utilisation de la gestion des tarifs postaux dans le package Administateur
+@enduml

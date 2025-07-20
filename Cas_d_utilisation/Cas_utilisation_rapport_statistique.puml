@@ -1,8 +1,8 @@
 @startuml Cas d'utilisation de la gestion des rapports statistique
 
-actor "Administrateur"
-actor "Opérateur stock"
-actor "Opérateur colis"
+'actor "Administrateur"
+'actor "Opérateur stock"
+'actor "Opérateur colis"
 actor "Opérateur"
 
 package "Application interne DigiCheese" {
@@ -13,17 +13,19 @@ package "Application interne DigiCheese" {
 
 }
 
-"Administrateur" --|> "Opérateur colis"
-"Administrateur" --|> "Opérateur stock"
-"Opérateur colis" --|> "Opérateur"
-"Opérateur stock" --|> "Opérateur"
+'"Administrateur" --|> "Opérateur colis"
+'"Administrateur" --|> "Opérateur stock"
+'"Opérateur colis" --|> "Opérateur"
+'"Opérateur stock" --|> "Opérateur"
 
 "Opérateur" -- "Générer un rapport statistique"
 "Générer un rapport statistique" --> "Choisir les données" : <<include>>
 "Générer un rapport statistique" <-- "Imprimer le rapport" : <<extends>>
 
-note "Les données peuvent être sur les objets, les clients, les positions gégoraphiques des envoies..." as N1
+note "Les données peuvent être sur les objets, les clients, coordonées géographique..." as N1
 N1 .. "Choisir les données"
 
+note "Pour la lisibilité du graphique,Opérateur désigne à la fois\nles Opérateurs colis et stock ainsi que les Administrateurs" as N2
+N2 .. "Opérateur"
 title Diagramme de cas d'utilisation des rapports statistique dans le package Administrateur
 @enduml

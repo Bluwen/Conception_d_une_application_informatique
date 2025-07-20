@@ -3,24 +3,24 @@
 actor "Administateur" 
 
 package "Application interne DigiCheese" {
-    usecase "Créer un emballage"
-    usecase "Gérer un emballage"
+    usecase "Créer un modèle d'emballage"
+    usecase "Gérer un modèle d'emballage"
 
-    usecase "Modifier les caractéristiques de l'emballage"
+    usecase "Modifier les caractéristiques du modèle d'emballage"
 
-    usecase "Ajouter les types d'objets possibles"
+    usecase "Ajouter les modèles d'objets possibles"
 }
 
-"Administateur" -- "Créer un emballage"
-"Administateur" -- "Gérer un emballage"
+"Administateur" -- "Créer un modèle d'emballage"
+"Administateur" -- "Gérer un modèle d'emballage"
 
-"Créer un emballage" --> "Gérer un emballage" : <<include>>
+"Créer un modèle d'emballage" --> "Gérer un modèle d'emballage": <<include>>
 
-"Gérer un emballage" <-- "Modifier les caractéristiques de l'emballage" : <<extend>>
-"Gérer un emballage" <-- "Ajouter les types d'objets possibles" : <<extend>>
+"Gérer un modèle d'emballage" <-- "Modifier les caractéristiques du modèle d'emballage" : <<extend>>
+"Gérer un modèle d'emballage" <-- "Ajouter les modèles d'objets possibles" : <<extend>>
 
-note "L'administrateur peut modifier : le poids, le prix, la description..." as N1
-N1 .. "Modifier les caractéristiques de l'emballage"
+'note "L'administrateur peut modifier : le poids, le prix, la description..." as N1
+'N1 .. "Modifier les caractéristiques de l'emballage"
 
-title Diagramme de cas d'utilisation de la gestion des emballages dans le package Administateur
+title Diagramme de cas d'utilisation de la gestion des modèles d'emballages dans le package Administateur
 @enduml

@@ -40,10 +40,10 @@ package "Application interne DigiCheese"  {
 "Gérer une commande"  <-- "Ajouter un numéro de suivi"  : <<extend>>
 
 'note "Ici le calcul des frais de ports fait références calcul du poids de l'emballage et des produits choisis\nPermet ensuite de le comparer au solde envoyer par le client pour vérifier que tout corresponds" as N1
-note "La validation du conditionnement corresponds à la validation\ndes frais de ports de la commande par rapport au solde verser par le client" as N2
+'note "La validation du conditionnement corresponds à la validation\ndes frais de ports de la commande par rapport au solde verser par le client" as N2
 
 'N1 .. Calcul_des_frais_de_ports
-N2 .. "Valider les frais de ports" 
+'N2 .. "Valider les frais de ports" 
 
 title Diagramme de cas d'utilisation de la gestion d'une commande dans la partie Colis de l'application
 @enduml

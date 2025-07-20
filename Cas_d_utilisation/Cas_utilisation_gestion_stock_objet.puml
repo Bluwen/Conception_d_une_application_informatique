@@ -11,13 +11,13 @@ package "Application interne DigiCheese" {
     usecase "Gérer le stock des objets"
     
     usecase "Consulter les objets disponibles"
-    usecase "Signaler la rupture de stock"
+    'usecase "Signaler la rupture de stock"
     usecase "Commander des objets"
 
-    usecase "Consulter l'emplacement d'un type d'objet"
+    usecase "Consulter l'emplacement d'un modèle d'objet"
     usecase "Consulter l'emplacement d'un objet"
 
-    usecase "Ajouter des lots d'objets"
+    usecase "Ajouter des objets"
 
 }
 
@@ -28,22 +28,22 @@ package "Application interne DigiCheese" {
 
 "Opérateur stock" -- "Gérer le stock des objets"
 "Gérer le stock des objets" <-- "Consulter les objets disponibles" : <<extend>>
-"Consulter les objets disponibles" <-- "Signaler la rupture de stock" : <<extend>>
+'"Consulter les objets disponibles" <-- "Signaler la rupture de stock" : <<extend>>
 "Consulter les objets disponibles" <-- "Commander des objets" : <<extends>>
 
-"Gérer le stock des objets" <-- "Consulter l'emplacement d'un type d'objet" : <<extends>>
-"Consulter l'emplacement d'un type d'objet" <-- "Consulter l'emplacement d'un objet" : <<extends>>
+"Gérer le stock des objets" <-- "Consulter l'emplacement d'un modèle d'objet" : <<extends>>
+"Consulter l'emplacement d'un modèle d'objet" <-- "Consulter l'emplacement d'un objet" : <<extends>>
 
-"Gérer le stock des objets" <-- "Ajouter des lots d'objets" : <<extends>>
+"Gérer le stock des objets" <-- "Ajouter des objets" : <<extends>>
 
-note "Permet de consulter le status des objets : réserver pour une commande, détruit, disponible..." as N1
-N1 .. "Consulter les objets disponibles"
+'note "Permet de consulter le status des objets : réserver pour une commande, détruit, disponible..." as N1
+'N1 .. "Consulter les objets disponibles"
 
-note "permettrai de signaler aux personnes a charge de commender les goodies qu'il faut en faire" as N2
-N2 .. "Commander des objets"
+'note "permettrai de signaler aux personnes a charge de commender les goodies qu'il faut en faire" as N2
+'N2 .. "Commander des objets"
 
-note "Ajoute dans la base de données les nouveaux lots d'objets déjà présents dans la base de données" as N3
-N3 .. "Ajouter des lots d'objets"
+'note "Ajoute dans la base de données les nouveaux lots d'objets déjà présents dans la base de données" as N3
+'N3 .. "Ajouter des lots d'objets"
 
 title Diagramme de cas d'utilisation des stock d'objets dans le package Stock
 @enduml
