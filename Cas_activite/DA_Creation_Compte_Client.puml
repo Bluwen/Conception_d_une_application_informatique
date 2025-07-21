@@ -3,7 +3,7 @@
 start
 
 
-:Rechercher un client;
+:GererUnClient(nomClient, prenomClient);
 |Application interne DigiCheese|
 if (Le client existe) then (Non)
     :L'application renvoie un message\n que le client n'existe pas;

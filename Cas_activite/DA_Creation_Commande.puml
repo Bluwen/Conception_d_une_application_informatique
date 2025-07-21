@@ -11,7 +11,7 @@ start
 :Complete le formulaire;
 
 |Application interne DigiCheese|
-if (Les objets selectionnées sont disponibles en stock) then (oui)
+if (Les objets sélectionnées sont disponibles en stock) then (oui)
     :Création de Commande]
     :Ajouter les objets à la commande;
     :Commande]
@@ -26,7 +26,7 @@ else (non)
     |Opérateur colis|
     if (Continuer la commande ou l'annuler ?) then (oui)
     |Application interne DigiCheese|
-        :Création de la commande avec le status en attent d'objet;
+        :Création de la commande avec le statu en attente d'objet;
         :Commande]
         stop
     else (non)

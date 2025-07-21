@@ -1,0 +1,26 @@
+@startuml création compte client da
+|Opérateur colis|
+start
+
+:Recherche les emballages les plus optimiser pour une commande;
+|Application interne DigiCheese|
+:Récupère les objets et leurs nombres présent dans la commande;
+:Recherche dans la liste des modèles d'emballages et d'objets\nl'emballages optimale;
+
+if(Le modèle d'emballages est disponible) then (non)
+    :L'application informe que l'emballage optimale et renvoie l'utilisateur vers la liste des emballages disponible;
+    stop
+else(oui)
+    :L'application retourne l'emballages recommander et son emplacement dans les stock;
+    :Il demande ensuite à l'utilisateur de valider son choix;
+    |Opérateur colis|
+    if (L'utilisateur valide l'emballages) then (oui)
+        |Application interne DigiCheese|
+        :Mise à jour de la commande pour rajouter l'emballage en modifiant le poids et le prix;
+        :Commande mis à jour]
+        stop
+    else (non)
+        :l'utilisateur est redirigé vers la liste de tous les emballages disponible;
+        stop
+
+@enduml
