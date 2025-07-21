@@ -117,13 +117,13 @@ package "Colis" {
         {field} poids : decimal (5,2)
         dateCreation : date
 
-
+        IntialiserCommande(idClient)
         ModifierPrix()
         ModifierPoids()
         ModifierEtat()
-        AjouterObjets()
-        AjouterEmballages()
-        AjouterTimbres()
+        AjouterObjets(idObjets)
+        AjouterEmballages(idEmballage)
+        AjouterTimbres(isTimbre)
         AjouterNuméroSuivie()
 
     }

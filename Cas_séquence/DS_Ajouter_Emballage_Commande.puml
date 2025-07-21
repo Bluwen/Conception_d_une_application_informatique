@@ -17,7 +17,7 @@ activate "Application interne DigiCheese"
 "Application interne DigiCheese" --> "Opérateur colis" : Affichage de la liste des emballages
 
 "Opérateur colis" -> "Application interne DigiCheese" : ChoissirEmballage(idEmballage)
-"Application interne DigiCheese" -> Emballage : ModificationDuStatus(idEmballage, Indisponible)
+"Application interne DigiCheese" -> Emballage : ChangementDeCondition()
 activate Emballage
 Emballage --> "Application interne DigiCheese" : Status modifier
 deactivate Emballage
@@ -26,10 +26,10 @@ deactivate Emballage
 activate Commande
 Commande --> "Application interne DigiCheese" : L'emballage à bien été ajouté
 
-"Application interne DigiCheese" -> Commande : MiseAJourPoids(poidsEmballage)
+"Application interne DigiCheese" -> Commande : ModifierPoids(poidsEmballage)
 Commande --> "Application interne DigiCheese" : Poids mis à jour
 
-"Application interne DigiCheese" -> Commande : MiseAJourPrix(prixEmballage)
+"Application interne DigiCheese" -> Commande : ModifierPrix(prixEmballage)
 Commande --> "Application interne DigiCheese" : Prix mis à jour
 deactivate Commande
 

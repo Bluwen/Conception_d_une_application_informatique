@@ -4,13 +4,14 @@ skinparam linetype ortho
 
 package "Adminisitration"{
 
-    class ModeleObjet {
+class ModeleObjet {
         idModeleObjet : int
         nom : string
         description : string
         'disponible : boolean
         {field} prix : decimal (5,2)
         {field} poids : decimal (5,2)
+
         ChangementDeStatus()
         ModifierPoids()
         ModifierPrix()
@@ -23,7 +24,7 @@ package "Adminisitration"{
         nom : string
         {field} prix : decimal (5,2)
         {field} poids : decimal (5,2)
-        
+
         ChangementDeStatus()
         ModifierPoids()
         ModifierPrix()
@@ -50,7 +51,7 @@ package "Adminisitration"{
     class Quantite {
         minObjets : int
         maxObjets : int
-
+        
         ModifierMinObjet(nb : int)
         ModifierMaxObjet(nb : int)
     }
@@ -69,12 +70,14 @@ package "Adminisitration"{
         {field} solde : decimal(5,2)
         dateCreation : date
 
+        IntialiserUnNouveauxCompte() 
         ModifierAdressePostal()
         ModifierAdresseMail()
         ModifierNewsletters()
         ModifierTelephone()
         CommandeEnCours()
         HistoriqueCommande()
+
     }
 
     class Enseigne {
@@ -82,7 +85,7 @@ package "Adminisitration"{
         nom : string
         'ville : string
         'codePostal : int
-
+        NouvelleEnseigne()
         ModifierAdressePostal()
         ModifierNom()
     }
@@ -95,7 +98,7 @@ package "Adminisitration"{
         ville : string
         codePostal : int
     }
-
+    
 }
 ModeleObjet "0..*"-- "1" Status : status
 ModeleEmballage "0..*" -- "1" Status : status

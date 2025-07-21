@@ -151,16 +151,21 @@ package "Utilisateur" {
         nom : string
         motDePasse : string
         adresseMail : string
+        Connexion()
     }
 
     class OperateurColis {
         CreerCompteClient()
         GererCompteClient()
         CreerComande()
-        GererCommande()
+        GererCommande(idCommande :int)
         EnvoyerNewletters(idClient : int, newsletters : boolean)
         EnvoyerMail(idClient : int, adresseMailClient : string)
         ValiderFraisDePort()
+        RechercherUnEmballage(nomObjet : string, nbObjets : int)
+        ChoissirEmballage(idEmballage : int)
+        ChoixDesProduit(nomObjet : string, nbObjets : int)
+        AjouterUnSolde()
     }
 
     class OperateurStock {
@@ -186,14 +191,14 @@ package "Utilisateur" {
     }
 
     class Administrateur {
-    ChercherCompteUtilisateur(nom : string, motDePasse : string)
-    ChercherCommande(idCommande : int)
-    ChercherObjetDisponible(nomObjet : string)
-    ChercherEmballagePourCommande(nomObjet : string, nombreObjet : int)
-    ChercherTarifsPostaux(poidsCommande : decimal(5,2))
-    GenererRapportStatistique(*args)
-    Impression(*args)
-}
+        GererModeleObjet(idModeleObjet: int)
+        CreerModeleObjet()
+        GererModeleEmballage(idModeleEmballage: int)
+        CreerModeleEmballage()
+        GererTarifsPostaux(idTarifsPostaux : int)
+        CreerTarifsPostaux()
+        SupprimerCompteClient(idClient : int)
+    }
 
 }
 class "Application interne DigiCheese"{

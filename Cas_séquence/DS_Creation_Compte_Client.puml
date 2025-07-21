@@ -15,13 +15,13 @@ activate "Application interne DigiCheese"
 "Application interne DigiCheese" ->  CompteClient : IntialiserUnNouveauxCompte(nom, prenom, ...)
 activate CompteClient
 
-"Opérateur colis" -> "Application interne DigiCheese" : AjouterAdresse(ville, codepostal, adresse)
+'"Opérateur colis" -> "Application interne DigiCheese" : AjouterAdresse(ville, codepostal, adresse)
 CompteClient -> AdressePostal : NouvelleAdresse(idClient, ville, codepostal, adresse)
 activate AdressePostal
 AdressePostal --> CompteClient : Adresse crée
 
 "Opérateur colis" -> "Application interne DigiCheese" : AjouterUnSolde(solde)
-"Application interne DigiCheese" -> CompteClient : AjouterSolde(solde)
+"Application interne DigiCheese" -> CompteClient : AjouterPrix(solde)
 
 title Diagramme de séquence de la création d'un compte client
 @enduml

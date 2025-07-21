@@ -70,6 +70,7 @@ package "Adminisitration"{
         {field} solde : decimal(5,2)
         dateCreation : date
 
+        IntialiserUnNouveauxCompte() 
         ModifierAdressePostal()
         ModifierAdresseMail()
         ModifierNewsletters()
@@ -84,7 +85,7 @@ package "Adminisitration"{
         nom : string
         'ville : string
         'codePostal : int
-
+        NouvelleEnseigne()
         ModifierAdressePostal()
         ModifierNom()
     }
@@ -150,13 +151,13 @@ package "Colis" {
         {field} poids : decimal (5,2)
         dateCreation : date
 
-
+        IntialiserCommande(idClient)
         ModifierPrix()
         ModifierPoids()
         ModifierEtat()
-        AjouterObjets()
-        AjouterEmballages()
-        AjouterTimbres()
+        AjouterObjets(idObjets)
+        AjouterEmballages(idEmballage)
+        AjouterTimbres(isTimbre)
         AjouterNuméroSuivie()
 
     }
@@ -184,16 +185,21 @@ package "Utilisateur" {
         nom : string
         motDePasse : string
         adresseMail : string
+        Connexion()
     }
 
     class OperateurColis {
         CreerCompteClient()
         GererCompteClient()
         CreerComande()
-        GererCommande()
+        GererCommande(idCommande :int)
         EnvoyerNewletters(idClient : int, newsletters : boolean)
         EnvoyerMail(idClient : int, adresseMailClient : string)
         ValiderFraisDePort()
+        RechercherUnEmballage(nomObjet : string, nbObjets : int)
+        ChoissirEmballage(idEmballage : int)
+        ChoixDesProduit(nomObjet : string, nbObjets : int)
+        AjouterUnSolde()
     }
 
     class OperateurStock {
@@ -234,11 +240,17 @@ package "Utilisateur" {
 class "Application interne DigiCheese"{
     ChercherCompteUtilisateur(nom : string, motDePasse : string)
     ChercherCommande(idCommande : int)
-    ChercherObjetDisponible(nomObjet : string)
-    ChercherEmballagePourCommande(nomObjet : string, nombreObjet : int)
+    'ChercherObjetDisponible(nomObjet : string)
+    'ChercherEmballagePourCommande(nomObjet : string, nombreObjet : int)
     ChercherTarifsPostaux(poidsCommande : decimal(5,2))
     GenererRapportStatistique(*args)
     Impression(*args)
+
+    RechercherTypeEmballageDisponible(nomObjet : string, nombreObjet : int)
+    RechercherCompteUtilisateur(nom, motdepasse)
+    ChercherCompteClient(nom,prenom)
+    RechercherListesDObjet(nomObjet)
+    RechercherObjetDisponible()
 
     
 

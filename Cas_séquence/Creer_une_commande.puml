@@ -29,7 +29,7 @@ activate Commande
 Commande --> "Application interne DigiCheese" : Prix mis à jour
 deactivate Commande
 
-"Application interne DigiCheese" -> Objet : ChangementDeDisponiblite(Rendre indisponible)
+"Application interne DigiCheese" -> Objet : ChangementDeCondition()
 activate Objet
 
 Objet --> "Application interne DigiCheese" : Le changement de status a été fait
